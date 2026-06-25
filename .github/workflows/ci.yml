@@ -1,0 +1,141 @@
+name: CI
+
+on:
+  # Executa CI na branch principal e em PRs para a main.
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+# Mantem apenas leitura do codigo-fonte.
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    name: Integracao continua
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: brodyandre/product-reviews-cicd-pipeline-lab
+      IMAGE_TAG: ${{ github.sha }}
+
+    steps:
+      # 1. Baixa o codigo do repositório.
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 2. Prepara o ambiente Node.js com cache de dependencias.
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # 3. Instala dependencias com lockfile.
+      - name: npm ci
+        run: npm ci
+
+      # 4. Verifica se a aplicacao inicializa corretamente.
+      - name: Build ou verificacao da aplicacao
+        run: npm run verify:app
+
+      # 5. Executa testes unitarios.
+      - name: Testes unitarios
+        run: npm run test:unit
+
+      # 6. Executa testes de integracao.
+      - name: Testes de integracao
+        run: npm run test:integration
+
+      # 7. Analisa o codigo com ESLint.
+      - name: Analise estatica com ESLint
+        run: npm run lint
+
+      # 8. Gera cobertura e exibe relatorio no terminal.
+      - name: Coverage
+        run: npm run coverage
+
+      # Verifica se a analise SonarCloud pode ser executada.
+      - name: Verificar elegibilidade do SonarCloud
+        id: sonarcloud
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          if [ -n "${SONAR_TOKEN}" ]; then
+            echo "enabled=true" >> "${GITHUB_OUTPUT}"
+          else
+            echo "enabled=false" >> "${GITHUB_OUTPUT}"
+          fi
+
+      # Executa a analise SonarCloud apenas quando houver token configurado.
+      - name: Analise opcional com SonarCloud
+        if: steps.sonarcloud.outputs.enabled == 'true'
+        uses: SonarSource/sonarqube-scan-action@v4.1.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      # Informa com clareza quando o SonarCloud foi ignorado.
+      - name: SonarCloud ignorado com seguranca
+        if: steps.sonarcloud.outputs.enabled != 'true'
+        run: 'echo "SonarCloud ignorado: SONAR_TOKEN nao configurado."'
+
+      # 9. Valida o Dockerfile com Hadolint.
+      - name: Docker lint com Hadolint
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
+
+      # 10. Constrói a imagem Docker final.
+      - name: Docker build
+        run: docker build --target runner -t "$IMAGE_NAME:$IMAGE_TAG" .
+
+      # 11. Escaneia a imagem gerada com Trivy.
+      - name: Scan de vulnerabilidades com Trivy
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          format: table
+          exit-code: '1'
+          ignore-unfixed: true
+          severity: HIGH,CRITICAL
+
+      # Define com seguranca se o push pode ocorrer.
+      - name: Verificar elegibilidade do Docker push
+        id: docker_push
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          if [ "${GITHUB_EVENT_NAME}" = "push" ] && \
+             [ "${GITHUB_REF}" = "refs/heads/main" ] && \
+             [ -n "${DOCKERHUB_USERNAME}" ] && \
+             [ -n "${DOCKERHUB_TOKEN}" ]; then
+            echo "enabled=true" >> "${GITHUB_OUTPUT}"
+          else
+            echo "enabled=false" >> "${GITHUB_OUTPUT}"
+          fi
+
+      # 12. Faz login no Docker Hub apenas quando permitido.
+      - name: Docker login no Docker Hub
+        if: steps.docker_push.outputs.enabled == 'true'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # 12. Publica a imagem com tags latest e SHA na branch main.
+      - name: Docker push opcional
+        if: steps.docker_push.outputs.enabled == 'true'
+        run: |
+          docker tag "$IMAGE_NAME:$IMAGE_TAG" "$IMAGE_NAME:latest"
+          docker push "$IMAGE_NAME:$IMAGE_TAG"
+          docker push "$IMAGE_NAME:latest"
+
+      # Informa com clareza quando o push foi ignorado.
+      - name: Push ignorado com seguranca
+        if: steps.docker_push.outputs.enabled != 'true'
+        run: 'echo "Docker push ignorado: evento, branch ou secrets nao habilitados."'

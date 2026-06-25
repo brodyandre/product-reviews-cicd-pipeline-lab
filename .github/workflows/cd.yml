@@ -1,0 +1,69 @@
+name: CD Local Simulada
+
+on:
+  # Execucao manual para demonstrar a esteira de CD no portfolio.
+  workflow_dispatch:
+
+# Permissoes minimas para leitura do repositorio.
+permissions:
+  contents: read
+
+jobs:
+  local-simulated-delivery:
+    name: Entrega continua local simulada
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: product-reviews-cicd-pipeline-lab:cd-${{ github.sha }}
+
+    steps:
+      # Baixa o codigo da aplicacao.
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Gera a imagem Docker usada nos dois ambientes simulados.
+      - name: Build da imagem Docker
+        run: docker build --target runner -t "${IMAGE_NAME}" .
+
+      # Sobe a homologacao local no proprio runner.
+      - name: Deploy de homologacao
+        run: bash scripts/deploy-homolog.sh "${IMAGE_NAME}"
+
+      # Valida a homologacao com endpoints essenciais.
+      - name: Smoke test homologacao
+        run: bash scripts/smoke-test.sh http://127.0.0.1:3001
+
+      # Sobe a producao simulada em outra porta do runner.
+      - name: Deploy de producao simulada
+        run: bash scripts/deploy-production.sh "${IMAGE_NAME}"
+
+      # Valida a producao simulada com o mesmo contrato minimo.
+      - name: Smoke test final
+        run: bash scripts/smoke-test.sh http://127.0.0.1:3002
+
+      # Publica um resumo simples no GitHub Actions Summary.
+      - name: Resumo da execucao
+        if: always()
+        run: |
+          get_status() {
+            docker inspect \
+              --format='{{if .State.Health}}{{.State.Health.Status}}{{else}}{{.State.Status}}{{end}}' \
+              "$1" 2>/dev/null || echo "nao iniciado"
+          }
+
+          {
+            echo "## CD local simulada"
+            echo
+            echo "> Esta pipeline faz uma simulacao local de entrega continua para fins de portfolio."
+            echo
+            echo "| Ambiente | Porta | Container | Status |"
+            echo "| --- | --- | --- | --- |"
+            echo "| Homologacao | 3001 | product-reviews-homolog | $(get_status product-reviews-homolog) |"
+            echo "| Producao simulada | 3002 | product-reviews-production | $(get_status product-reviews-production) |"
+            echo
+            echo "Imagem utilizada: \`${IMAGE_NAME}\`"
+          } >> "${GITHUB_STEP_SUMMARY}"
+
+      # Remove os containers locais, mesmo se houver falha.
+      - name: Cleanup dos deploys locais
+        if: always()
+        run: bash scripts/cleanup-local-deploy.sh

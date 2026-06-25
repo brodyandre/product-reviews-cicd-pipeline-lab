@@ -1,0 +1,11 @@
+.agents
+.codex
+.env
+.env.*
+.git
+.github
+coverage
+docs
+node_modules
+tests
+npm-debug.log*

@@ -1,0 +1,56 @@
+{
+  "name": "product-reviews-cicd-pipeline-lab",
+  "version": "1.0.0",
+  "description": "API REST local de reviews de produtos para demonstrar boas práticas de CI/CD, qualidade, testes e Docker.",
+  "private": true,
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "jest --runInBand",
+    "test:unit": "jest --runInBand tests/unit",
+    "test:integration": "jest --runInBand tests/integration",
+    "coverage": "jest --coverage --runInBand",
+    "verify:app": "node scripts/verify-app.js",
+    "security:check": "bash scripts/check-sensitive-files.sh",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "docker:build": "docker build --target runner -t product-reviews-api:local .",
+    "docker:up": "docker compose up --build",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f api",
+    "docker:ps": "docker compose ps",
+    "cd:cleanup": "bash scripts/cleanup-local-deploy.sh",
+    "cd:homolog": "bash scripts/deploy-homolog.sh product-reviews-api:local",
+    "cd:production": "bash scripts/deploy-production.sh product-reviews-api:local",
+    "smoke:homolog": "bash scripts/smoke-test.sh http://127.0.0.1:3001",
+    "smoke:production": "bash scripts/smoke-test.sh http://127.0.0.1:3002",
+    "smoke": "node scripts/smoke-test.js",
+    "reset-data": "node scripts/reset-data.js"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "rest-api",
+    "docker",
+    "github-actions",
+    "ci-cd"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2",
+    "helmet": "^7.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.14.0",
+    "eslint-config-prettier": "^9.1.0",
+    "jest": "^29.7.0",
+    "prettier": "^3.3.3"
+  }
+}

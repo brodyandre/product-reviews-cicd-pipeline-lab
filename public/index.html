@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Product Reviews Lab</title>
+    <meta
+      name="description"
+      content="Painel elegante para acompanhar reviews de produtos, descobrir percepcoes dos clientes e registrar novos feedbacks."
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero__copy">
+          <span class="eyebrow">Product Reviews Lab</span>
+          <h1>
+            Uma experiencia de reviews pensada para leitura rapida e decisao
+            clara.
+          </h1>
+          <p class="hero__text">
+            Explore a percepcao dos clientes, identifique tendencias por produto
+            e registre novos feedbacks em uma interface leve, elegante e
+            orientada a UX.
+          </p>
+          <div class="hero__actions">
+            <a class="button button--primary" href="#nova-review"
+              >Nova review</a
+            >
+            <a class="button button--ghost" href="#visao-geral">Ver painel</a>
+          </div>
+        </div>
+        <aside class="hero__spotlight">
+          <p class="spotlight__label">Leitura orientada por contexto</p>
+          <ul class="spotlight__list">
+            <li>Resumo visual por produto</li>
+            <li>Busca imediata entre opinioes</li>
+            <li>Formulario com feedback claro</li>
+          </ul>
+        </aside>
+      </header>
+
+      <main class="content-grid" id="visao-geral">
+        <section class="panel panel--metrics" aria-labelledby="metricas-title">
+          <div class="section-heading">
+            <div>
+              <span class="section-kicker">Panorama</span>
+              <h2 id="metricas-title">Visao geral da experiencia</h2>
+            </div>
+            <p class="section-copy">
+              Indicadores diretos para entender volume, satisfacao media e ritmo
+              recente de feedback.
+            </p>
+          </div>
+          <div class="metrics-grid" id="metrics-grid" aria-live="polite"></div>
+        </section>
+
+        <section class="panel panel--summary" aria-labelledby="summary-title">
+          <div class="section-heading">
+            <div>
+              <span class="section-kicker">Radar do produto</span>
+              <h2 id="summary-title">Resumo por produto</h2>
+            </div>
+            <p class="section-copy">
+              Selecione um produto para ver media, distribuicao de notas e
+              momento mais recente de feedback.
+            </p>
+          </div>
+          <div
+            class="product-pills"
+            id="product-pills"
+            role="tablist"
+            aria-label="Produtos"
+          ></div>
+          <div class="summary-card" id="summary-card" aria-live="polite"></div>
+        </section>
+
+        <section class="panel panel--reviews" aria-labelledby="reviews-title">
+          <div class="section-heading section-heading--split">
+            <div>
+              <span class="section-kicker">Escuta do cliente</span>
+              <h2 id="reviews-title">Reviews recentes</h2>
+            </div>
+            <div class="toolbar" aria-label="Ferramentas de busca e filtro">
+              <label class="field field--compact">
+                <span class="field__label">Buscar</span>
+                <input
+                  id="search-input"
+                  class="field__control"
+                  type="search"
+                  placeholder="Produto, cliente, comentario ou canal"
+                />
+              </label>
+              <label class="field field--compact">
+                <span class="field__label">Canal</span>
+                <select id="source-filter" class="field__control">
+                  <option value="">Todos</option>
+                </select>
+              </label>
+            </div>
+          </div>
+          <div class="reviews-list" id="reviews-list" aria-live="polite"></div>
+        </section>
+
+        <section
+          class="panel panel--form"
+          id="nova-review"
+          aria-labelledby="form-title"
+        >
+          <div class="section-heading">
+            <div>
+              <span class="section-kicker">Nova percepcao</span>
+              <h2 id="form-title">Registrar review</h2>
+            </div>
+            <p class="section-copy">
+              Um fluxo curto, objetivo e com validacao clara para reduzir atrito
+              no cadastro.
+            </p>
+          </div>
+          <form id="review-form" class="review-form" novalidate>
+            <div class="form-grid">
+              <label class="field">
+                <span class="field__label">Produto</span>
+                <input
+                  class="field__control"
+                  id="productId"
+                  name="productId"
+                  type="text"
+                  placeholder="Ex.: notebook-pro-15"
+                  autocomplete="off"
+                />
+                <span class="field__error" data-error-for="productId"></span>
+              </label>
+
+              <label class="field">
+                <span class="field__label">Cliente</span>
+                <input
+                  class="field__control"
+                  id="customerName"
+                  name="customerName"
+                  type="text"
+                  placeholder="Nome do cliente"
+                  autocomplete="name"
+                />
+                <span class="field__error" data-error-for="customerName"></span>
+              </label>
+
+              <label class="field">
+                <span class="field__label">Nota</span>
+                <select class="field__control" id="rating" name="rating">
+                  <option value="">Selecione</option>
+                  <option value="5">5 - Excelente</option>
+                  <option value="4">4 - Muito bom</option>
+                  <option value="3">3 - Bom</option>
+                  <option value="2">2 - Regular</option>
+                  <option value="1">1 - Ruim</option>
+                </select>
+                <span class="field__error" data-error-for="rating"></span>
+              </label>
+
+              <label class="field">
+                <span class="field__label">Origem</span>
+                <input
+                  class="field__control"
+                  id="source"
+                  name="source"
+                  type="text"
+                  placeholder="website, marketplace, mobile-app..."
+                  autocomplete="off"
+                />
+                <span class="field__error" data-error-for="source"></span>
+              </label>
+
+              <label class="field field--full">
+                <span class="field__label">Comentario</span>
+                <textarea
+                  class="field__control field__control--textarea"
+                  id="comment"
+                  name="comment"
+                  rows="5"
+                  placeholder="Descreva a experiencia do cliente com clareza e objetividade."
+                ></textarea>
+                <span class="field__error" data-error-for="comment"></span>
+              </label>
+            </div>
+            <div class="form-actions">
+              <button
+                id="submit-button"
+                class="button button--primary"
+                type="submit"
+              >
+                Salvar review
+              </button>
+              <p class="form-hint">
+                O resumo e a lista sao atualizados automaticamente apos o envio.
+              </p>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <div id="status-banner" class="status-banner" aria-live="polite"></div>
+
+    <noscript>
+      <div class="noscript-banner">
+        Esta experiencia precisa de JavaScript para carregar o painel e enviar
+        novas reviews.
+      </div>
+    </noscript>
+
+    <script src="/app.js" defer></script>
+  </body>
+</html>

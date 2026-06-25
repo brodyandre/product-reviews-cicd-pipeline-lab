@@ -1,0 +1,22 @@
+services:
+  api:
+    image: product-reviews-api:local
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+    container_name: product-reviews-api
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 3000
+      REVIEWS_DATA_FILE: /usr/src/app/data/reviews.json
+    ports:
+      - '3000:3000'
+    volumes:
+      - reviews-data:/usr/src/app/data
+
+volumes:
+  reviews-data:
+    name: product-reviews-data
