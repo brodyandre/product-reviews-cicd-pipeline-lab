@@ -1,5 +1,8 @@
 FROM node:20-alpine AS base
 
+# Aplica correcoes de seguranca do Alpine antes de montar as demais etapas.
+RUN apk upgrade --no-cache libcrypto3 libssl3
+
 WORKDIR /usr/src/app
 
 FROM base AS production-deps
