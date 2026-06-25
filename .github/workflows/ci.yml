@@ -30,7 +30,7 @@ jobs:
 
       # 2. Prepara o ambiente Node.js com cache de dependencias.
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 20
           cache: npm
