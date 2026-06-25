@@ -20,6 +20,10 @@ COPY --chown=node:node public ./public
 COPY --chown=node:node src ./src
 COPY --chown=node:node data ./data
 
+# Remove ferramentas de build do runtime para reduzir superficie de ataque.
+RUN rm -rf /usr/local/lib/node_modules/npm \
+    && rm -f /usr/local/bin/npm /usr/local/bin/npx
+
 USER node
 
 EXPOSE 3000
