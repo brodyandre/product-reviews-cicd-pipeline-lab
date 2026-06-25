@@ -1,0 +1,53 @@
+{
+  "success": true,
+  "data": [
+    {
+      "id": "rev_005",
+      "productId": "smartwatch-active",
+      "customerName": "Fernanda Alves",
+      "rating": 4,
+      "comment": "Boa integracao com o celular e sensores confiaveis.",
+      "source": "physical-store",
+      "createdAt": "2026-06-05T12:45:00.000Z"
+    },
+    {
+      "id": "rev_004",
+      "productId": "fone-x200",
+      "customerName": "Pedro Martins",
+      "rating": 3,
+      "comment": "Confortavel, mas a bateria dura menos do que o esperado.",
+      "source": "website",
+      "createdAt": "2026-06-04T18:20:00.000Z"
+    },
+    {
+      "id": "rev_003",
+      "productId": "fone-x200",
+      "customerName": "Juliana Rocha",
+      "rating": 5,
+      "comment": "Som limpo e cancelamento de ruido eficiente.",
+      "source": "marketplace",
+      "createdAt": "2026-06-03T09:15:00.000Z"
+    },
+    {
+      "id": "rev_002",
+      "productId": "notebook-pro-15",
+      "customerName": "Carlos Lima",
+      "rating": 4,
+      "comment": "Boa construcao, mas poderia ser mais leve.",
+      "source": "mobile-app",
+      "createdAt": "2026-06-02T14:30:00.000Z"
+    },
+    {
+      "id": "rev_001",
+      "productId": "notebook-pro-15",
+      "customerName": "Ana Souza",
+      "rating": 5,
+      "comment": "Desempenho excelente e bateria duradoura.",
+      "source": "website",
+      "createdAt": "2026-06-01T10:00:00.000Z"
+    }
+  ],
+  "meta": {
+    "count": 5
+  }
+}

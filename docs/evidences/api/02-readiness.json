@@ -1,0 +1,8 @@
+{
+  "success": true,
+  "data": {
+    "status": "ready",
+    "dataFile": "/mnt/c/Users/USER/Documents/Repositorios/product-reviews-cicd-pipeline-lab/data/reviews.json",
+    "timestamp": "2026-06-25T17:37:24.278Z"
+  }
+}

@@ -1,0 +1,4 @@
+
+> product-reviews-cicd-pipeline-lab@1.0.0 lint
+> eslint .
+

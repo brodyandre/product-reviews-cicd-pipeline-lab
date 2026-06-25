@@ -1,0 +1,5 @@
+
+> product-reviews-cicd-pipeline-lab@1.0.0 verify:app
+> node scripts/verify-app.js
+
+Aplicação verificada com sucesso.

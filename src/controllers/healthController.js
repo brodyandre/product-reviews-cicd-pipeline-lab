@@ -19,7 +19,7 @@ function buildHealthController({ reviewService }) {
       if (!readiness.ready) {
         throw createHttpError(
           503,
-          readiness.message || 'Aplicacao ainda nao esta pronta.'
+          readiness.message || 'Aplicação ainda não está pronta.'
         );
       }
 

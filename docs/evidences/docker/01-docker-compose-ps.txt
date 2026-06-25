@@ -1,0 +1,2 @@
+NAME                  IMAGE                       COMMAND                  SERVICE   CREATED          STATUS                    PORTS
+product-reviews-api   product-reviews-api:local   "docker-entrypoint.s…"   api       49 seconds ago   Up 48 seconds (healthy)   0.0.0.0:3000->3000/tcp, [::]:3000->3000/tcp

@@ -1,0 +1,16 @@
+{
+  "success": true,
+  "data": {
+    "productId": "fone-x200",
+    "totalReviews": 2,
+    "averageRating": 4,
+    "ratingDistribution": {
+      "1": 0,
+      "2": 0,
+      "3": 1,
+      "4": 0,
+      "5": 1
+    },
+    "latestReviewAt": "2026-06-04T18:20:00.000Z"
+  }
+}

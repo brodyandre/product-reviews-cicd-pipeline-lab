@@ -9,7 +9,7 @@ function verifyApp() {
     throw new Error('Falha ao inicializar a aplicacao Express.');
   }
 
-  console.log('Aplicacao verificada com sucesso.');
+  console.log('Aplicação verificada com sucesso.');
 }
 
 try {

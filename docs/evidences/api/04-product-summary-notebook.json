@@ -1,0 +1,16 @@
+{
+  "success": true,
+  "data": {
+    "productId": "notebook-pro-15",
+    "totalReviews": 2,
+    "averageRating": 4.5,
+    "ratingDistribution": {
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 1,
+      "5": 1
+    },
+    "latestReviewAt": "2026-06-02T14:30:00.000Z"
+  }
+}

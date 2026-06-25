@@ -1,0 +1,50 @@
+
+> product-reviews-cicd-pipeline-lab@1.0.0 coverage
+> jest --coverage --runInBand
+
+PASS tests/integration/reviews.api.test.js (9.021 s)
+PASS tests/unit/middlewares/notFoundHandler.test.js
+PASS tests/unit/middlewares/errorHandler.test.js
+PASS tests/unit/controllers/healthController.test.js
+PASS tests/unit/config/env.test.js
+PASS tests/unit/services/productService.test.js
+PASS tests/unit/services/reviewService.test.js
+-----------------------|---------|----------|---------|---------|------------------------
+File                   | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s      
+-----------------------|---------|----------|---------|---------|------------------------
+All files              |   95.29 |    84.69 |     100 |   95.25 |                        
+ src                   |     100 |      100 |     100 |     100 |                        
+  app.js               |     100 |      100 |     100 |     100 |                        
+ src/config            |     100 |    94.73 |     100 |     100 |                        
+  container.js         |     100 |    85.71 |     100 |     100 | 6                      
+  env.js               |     100 |      100 |     100 |     100 |                        
+ src/controllers       |     100 |    83.33 |     100 |     100 |                        
+  healthController.js  |     100 |       75 |     100 |     100 | 22                     
+  productController.js |     100 |      100 |     100 |     100 |                        
+  reviewController.js  |     100 |      100 |     100 |     100 |                        
+ src/middlewares       |     100 |      100 |     100 |     100 |                        
+  asyncHandler.js      |     100 |      100 |     100 |     100 |                        
+  errorHandler.js      |     100 |      100 |     100 |     100 |                        
+  notFoundHandler.js   |     100 |      100 |     100 |     100 |                        
+  validateRequest.js   |     100 |      100 |     100 |     100 |                        
+ src/repositories      |   88.23 |    66.66 |     100 |    87.5 |                        
+  reviewRepository.js  |   88.23 |    66.66 |     100 |    87.5 | 15,30,42,48            
+ src/routes            |     100 |      100 |     100 |     100 |                        
+  healthRoutes.js      |     100 |      100 |     100 |     100 |                        
+  productRoutes.js     |     100 |      100 |     100 |     100 |                        
+  reviewRoutes.js      |     100 |      100 |     100 |     100 |                        
+ src/services          |     100 |      100 |     100 |     100 |                        
+  productService.js    |     100 |      100 |     100 |     100 |                        
+  reviewService.js     |     100 |      100 |     100 |     100 |                        
+ src/utils             |     100 |    76.47 |     100 |     100 |                        
+  createHttpError.js   |     100 |      100 |     100 |     100 |                        
+  httpResponse.js      |     100 |    66.66 |     100 |     100 | 1-6,19                 
+ src/validators        |   81.57 |    77.41 |     100 |   81.57 |                        
+  reviewValidator.js   |   81.57 |    77.41 |     100 |   81.57 | 27,38,59,74,82,110,126 
+-----------------------|---------|----------|---------|---------|------------------------
+
+Test Suites: 7 passed, 7 total
+Tests:       25 passed, 25 total
+Snapshots:   0 total
+Time:        14.043 s
+Ran all test suites.
