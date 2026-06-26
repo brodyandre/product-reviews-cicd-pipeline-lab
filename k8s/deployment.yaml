@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-reviews-api
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: product-reviews-api
+  template:
+    metadata:
+      labels:
+        app: product-reviews-api
+    spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      initContainers:
+        - name: seed-reviews-data
+          image: product-reviews-api:k8s-local
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+            - -c
+            - cp /usr/src/app/data/reviews.seed.json /runtime-data/reviews.json
+          volumeMounts:
+            - name: runtime-data
+              mountPath: /runtime-data
+      containers:
+        - name: product-reviews-api
+          image: product-reviews-api:k8s-local
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: product-reviews-config
+          ports:
+            - name: http
+              containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 6
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 20
+            timeoutSeconds: 3
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 300m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+          volumeMounts:
+            - name: runtime-data
+              mountPath: /usr/src/app/runtime-data
+      volumes:
+        - name: runtime-data
+          emptyDir: {}

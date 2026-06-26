@@ -55,6 +55,48 @@ Verifique:
 - se a porta `3000` está livre
 - se o endpoint `/health` responde `200`
 
+## Kubernetes
+
+### Cluster k3d não cria
+
+```bash
+k3d version
+docker ps
+```
+
+Se falhar:
+
+- confirme se o Docker está ativo
+- valide se a porta `8080` não está em uso
+- remova clusters antigos com `npm run k8s:cluster:delete`
+
+### Deploy em Kubernetes não sobe
+
+```bash
+npm run k8s:status
+kubectl -n product-reviews-lab describe pod
+kubectl -n product-reviews-lab logs deployment/product-reviews-api
+```
+
+Verifique:
+
+- se a imagem `product-reviews-api:k8s-local` foi gerada
+- se o cluster `product-reviews-lab` existe
+- se o Ingress do `k3d` foi criado corretamente
+
+### Ingress responde, mas API não abre
+
+```bash
+curl http://127.0.0.1:8080/health
+kubectl -n product-reviews-lab get ingress,svc,pods
+```
+
+Se falhar:
+
+- confirme se o cluster foi criado com publicação da porta `8080`
+- aguarde o rollout terminar antes do smoke test
+- refaça o deploy com `npm run k8s:deploy`
+
 ## Porta ocupada
 
 Se a porta `3000`, `3001` ou `3002` já estiver em uso:

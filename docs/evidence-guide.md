@@ -61,7 +61,24 @@ Capture:
 - etapa de Trivy
 - etapa de Docker build
 
-### 7. CD simulada
+### 7. Kubernetes local
+
+Capture:
+
+```bash
+npm run k8s:cluster:create
+npm run k8s:deploy
+npm run k8s:status
+npm run k8s:smoke
+```
+
+Também vale registrar:
+
+- saída de `kubectl get pods,svc,ingress -n product-reviews-lab`
+- acesso em `http://127.0.0.1:8080`
+- resposta de `curl http://127.0.0.1:8080/health`
+
+### 8. CD simulada
 
 Capture:
 

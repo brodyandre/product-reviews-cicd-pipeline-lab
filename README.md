@@ -1,34 +1,38 @@
-# Product Reviews CI/CD Pipeline Lab
+# Product Reviews CI/CD + Kubernetes Lab
 
 ![Node.js 20](https://img.shields.io/badge/Node.js-20-339933?logo=node.js&logoColor=white)
 ![Express](https://img.shields.io/badge/Express-4.x-000000?logo=express&logoColor=white)
 ![Jest](https://img.shields.io/badge/Testes-Jest-C21325?logo=jest&logoColor=white)
-![Docker](https://img.shields.io/badge/Container-Docker-2496ED?logo=docker&logoColor=white)
-![GitHub Actions](https://img.shields.io/badge/CI-GitHub_Actions-2088FF?logo=github-actions&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Containerização-2496ED?logo=docker&logoColor=white)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-Local-326CE5?logo=kubernetes&logoColor=white)
+![k3d](https://img.shields.io/badge/k3d-Cluster_Local-FFC61C)
+![GitHub Actions](https://img.shields.io/badge/CI%2FCD-GitHub_Actions-2088FF?logo=github-actions&logoColor=white)
 ![Trivy](https://img.shields.io/badge/Security-Trivy-1904DA?logo=aqua&logoColor=white)
-![CD Simulada](https://img.shields.io/badge/CD-Simulação_Local-2E8B57)
 ![SonarCloud Opcional](https://img.shields.io/badge/SonarCloud-Opcional-4E9BCD?logo=sonarcloud&logoColor=white)
 ![Licença MIT](https://img.shields.io/badge/Licença-MIT-6C757D)
 
-Aplicação local de reviews de produtos construída com Node.js e Express para demonstrar, de forma prática e profissional, competências em API REST, testes, qualidade de código, Docker, GitHub Actions, segurança de imagem e fluxo de entrega contínua simulada.
+Aplicação local de reviews de produtos construída com `Node.js` e `Express` para demonstrar, em um único laboratório, API REST, testes, Docker, GitHub Actions, segurança de imagem, entrega contínua simulada e deploy opcional em `Kubernetes local` com `k3d`.
 
-Este projeto não afirma existir em cloud pública. A etapa de entrega contínua é uma simulação local controlada, criada para demonstrar o raciocínio de CD sem depender de infraestrutura paga.
+> Este projeto foi pensado para portfólio técnico. Ele não afirma existir em cloud pública. A entrega contínua continua sendo uma simulação local controlada, enquanto o suporte a Kubernetes foi adicionado como trilha opcional de evolução e demonstração de plataforma.
 
 <a id="indice"></a>
 
 ## Índice
 
 - [Visão geral](#visao-geral)
-- [O que este projeto demonstra](#o-que-este-projeto-demonstra)
+- [Destaques técnicos](#destaques-tecnicos)
 - [Arquitetura e fluxos](#arquitetura-e-fluxos)
+- [Quick start](#quick-start)
 - [Comandos locais](#comandos-locais)
 - [Endpoints da API](#endpoints-da-api)
 - [Docker](#docker)
+- [Kubernetes local com k3d](#kubernetes-local-com-k3d)
 - [Testes e qualidade](#testes-e-qualidade)
 - [Pipeline de CI](#pipeline-de-ci)
 - [Pipeline de CD simulada](#pipeline-de-cd-simulada)
 - [Segurança](#seguranca)
 - [Estrutura do projeto](#estrutura-do-projeto)
+- [Documentação complementar](#documentacao-complementar)
 - [Evidências sugeridas para prints](#evidencias-sugeridas-para-prints)
 - [Troubleshooting](#troubleshooting)
 - [Próximos passos](#proximos-passos)
@@ -38,32 +42,31 @@ Este projeto não afirma existir em cloud pública. A etapa de entrega contínua
 
 ## Visão geral
 
-O `product-reviews-cicd-pipeline-lab` foi desenhado como um laboratório de portfólio com foco em empregabilidade. Ele combina uma aplicação web leve, uma API REST limpa, persistência local simples e uma esteira técnica que evidencia boas práticas de desenvolvimento moderno.
+O `product-reviews-cicd-pipeline-lab` foi desenhado para comunicar maturidade técnica de forma rápida. A aplicação entrega uma experiência local agradável, uma API organizada em camadas, persistência simples em JSON, testes automatizados, empacotamento com Docker e dois caminhos de operação de infraestrutura:
 
-Pontos centrais do projeto:
+- execução direta com `Node.js`
+- execução containerizada com `Docker Compose`
+- execução opcional em `Kubernetes local` com `k3d`
 
-- interface web com foco em UX e leitura rápida
-- API Express organizada em camadas
-- persistência local em JSON para facilitar avaliação e execução
-- testes unitários e de integração com cobertura
-- containerização com Docker e execução local com Docker Compose
-- integração contínua com lint, testes, build, Hadolint, Trivy e push opcional
-- entrega contínua simulada localmente para demonstrar promoção entre ambientes
+Isso torna o projeto útil tanto para avaliação de backend quanto para demonstração de práticas de plataforma, qualidade e segurança.
 
 [Retornar ao índice](#indice)
 
-<a id="o-que-este-projeto-demonstra"></a>
+<a id="destaques-tecnicos"></a>
 
-## O que este projeto demonstra
+## Destaques técnicos
 
-Este laboratório foi pensado para comunicar valor técnico de forma objetiva para recrutadores, líderes técnicos e times de engenharia.
-
-- capacidade de estruturar uma API Node.js legível e testável
-- preocupação com qualidade desde o início, não como etapa tardia
-- domínio de Docker para empacotamento e execução reproduzível
-- uso consciente de GitHub Actions para CI e CD simulada
-- atenção à segurança com scan de vulnerabilidades por Trivy
-- visão de evolução: SonarCloud aparece como extensão opcional natural
+| Pilar        | Implementação neste projeto                                                 |
+| ------------ | --------------------------------------------------------------------------- |
+| API          | Express com rotas, controllers, services, repository e validação dedicada   |
+| Persistência | JSON local para facilitar execução e avaliação                              |
+| UX           | Interface web leve, clara e orientada a leitura rápida                      |
+| Testes       | Jest com testes unitários e de integração                                   |
+| Qualidade    | ESLint, Prettier, coverage e verificação de inicialização                   |
+| Containers   | Dockerfile multi-stage, usuário não root e healthcheck                      |
+| CI           | GitHub Actions com lint, testes, coverage, Hadolint, Trivy e push opcional  |
+| CD           | Simulação de promoção entre homologação e produção no próprio runner        |
+| Plataforma   | Trilha opcional de Kubernetes local com `k3d`, Ingress e `kubectl apply -k` |
 
 [Retornar ao índice](#indice)
 
@@ -71,9 +74,9 @@ Este laboratório foi pensado para comunicar valor técnico de forma objetiva pa
 
 ## Arquitetura e fluxos
 
-Os diagramas completos estão em [docs/architecture.md](docs/architecture.md). Abaixo estão dois recortes úteis para leitura rápida.
+Os diagramas completos estão em [docs/architecture.md](docs/architecture.md). Abaixo estão os recortes mais úteis para leitura rápida no GitHub.
 
-### Visão de pipeline
+### Pipeline principal
 
 ```mermaid
 flowchart LR
@@ -85,7 +88,7 @@ flowchart LR
     F --> G["Docker Hub"]
 ```
 
-### Visão da aplicação
+### Arquitetura da aplicação
 
 ```mermaid
 flowchart LR
@@ -97,29 +100,33 @@ flowchart LR
     F --> G["JSON local"]
 ```
 
-Documentação complementar:
+### Trilha opcional em Kubernetes
 
-- [Arquitetura e diagramas detalhados](docs/architecture.md)
-- [Fluxo de CI/CD](docs/ci-cd-flow.md)
-- [Docker](docs/docker.md)
-- [API](docs/api.md)
-- [Segurança](docs/security.md)
-- [Troubleshooting](docs/troubleshooting.md)
-- [Guia de evidências](docs/evidence-guide.md)
+```mermaid
+flowchart LR
+    A["Imagem Docker Local"] --> B["Cluster k3d"]
+    B --> C["Ingress :8080"]
+    C --> D["Service"]
+    D --> E["Deployment"]
+    E --> F["Pod Node.js"]
+    F --> G["Seed JSON no pod"]
+```
 
 [Retornar ao índice](#indice)
 
-<a id="comandos-locais"></a>
+<a id="quick-start"></a>
 
-## Comandos locais
+## Quick start
 
 ### Requisitos
 
-- Node.js 20+
-- npm 10+
-- Docker e Docker Compose para a parte de containers
+- `Node.js 20+`
+- `npm 10+`
+- `Docker`
+- `Docker Compose`
+- `kubectl` e `k3d` apenas para a trilha opcional em Kubernetes
 
-### Execução da aplicação
+### Subir a aplicação da forma mais simples
 
 ```bash
 npm install
@@ -128,17 +135,55 @@ npm run dev
 
 Aplicação disponível em `http://localhost:3000`.
 
-### Comandos principais
+### Caminhos de execução disponíveis
+
+| Modo               | Objetivo                      | URL padrão              |
+| ------------------ | ----------------------------- | ----------------------- |
+| `Node.js local`    | desenvolvimento rápido        | `http://localhost:3000` |
+| `Docker Compose`   | execução reproduzível         | `http://localhost:3000` |
+| `k3d + Kubernetes` | demonstração de cluster local | `http://127.0.0.1:8080` |
+
+[Retornar ao índice](#indice)
+
+<a id="comandos-locais"></a>
+
+## Comandos locais
+
+### Aplicação e qualidade
 
 ```bash
+npm install
+npm run dev
 npm test
 npm run coverage
 npm run lint
 npm run format:check
 npm run verify:app
+npm run security:check
 ```
 
-### Simulação local de CD
+### Docker
+
+```bash
+npm run docker:build
+docker compose up --build
+docker compose ps
+docker compose down
+```
+
+### Kubernetes local com k3d
+
+```bash
+npm run k8s:build
+npm run k8s:cluster:create
+npm run k8s:deploy
+npm run k8s:status
+npm run k8s:smoke
+npm run k8s:cleanup
+npm run k8s:cluster:delete
+```
+
+### CD simulada local
 
 ```bash
 npm run docker:build
@@ -156,15 +201,15 @@ npm run cd:cleanup
 
 ## Endpoints da API
 
-| Método | Rota                               | Descrição                               |
-| ------ | ---------------------------------- | --------------------------------------- |
-| `GET`  | `/`                                | Interface web da aplicação              |
-| `GET`  | `/health`                          | Healthcheck básico da aplicação         |
-| `GET`  | `/ready`                           | Prontidão do serviço e do arquivo local |
-| `GET`  | `/api/reviews`                     | Lista reviews cadastradas               |
-| `GET`  | `/api/reviews/:id`                 | Busca uma review por identificador      |
-| `POST` | `/api/reviews`                     | Cria uma nova review                    |
-| `GET`  | `/api/products/:productId/summary` | Retorna resumo agregado por produto     |
+| Método | Rota                               | Descrição                                 |
+| ------ | ---------------------------------- | ----------------------------------------- |
+| `GET`  | `/`                                | Interface web da aplicação                |
+| `GET`  | `/health`                          | Healthcheck básico                        |
+| `GET`  | `/ready`                           | Prontidão da aplicação e do arquivo local |
+| `GET`  | `/api/reviews`                     | Lista reviews cadastradas                 |
+| `GET`  | `/api/reviews/:id`                 | Busca uma review por identificador        |
+| `POST` | `/api/reviews`                     | Cria uma nova review                      |
+| `GET`  | `/api/products/:productId/summary` | Retorna resumo agregado por produto       |
 
 ### Exemplo de payload para `POST /api/reviews`
 
@@ -178,11 +223,14 @@ npm run cd:cleanup
 }
 ```
 
-Observações de contrato:
+### Contratos preservados
 
-- entradas inválidas retornam `400`
-- recursos inexistentes retornam `404`
-- respostas seguem um envelope JSON padronizado
+- payload inválido retorna `400`
+- recurso inexistente retorna `404`
+- sucesso usa envelope `success: true`
+- erro usa envelope `success: false`
+
+Mais detalhes em [docs/api.md](docs/api.md).
 
 [Retornar ao índice](#indice)
 
@@ -190,31 +238,23 @@ Observações de contrato:
 
 ## Docker
 
-O projeto usa uma imagem Docker com foco em boas práticas:
+O projeto usa Docker como trilha principal de empacotamento e execução reproduzível.
+
+### O que já está implementado
 
 - `Dockerfile` multi-stage
-- execução como usuário não root quando possível
+- runtime como usuário não root
 - `healthcheck` apontando para `/health`
-- `.dockerignore` para evitar enviar arquivos desnecessários
-- `.env.example` para configuração local sem versionar segredos reais
+- `.dockerignore`
+- `.env.example`
+- imagem endurecida para boa compatibilidade com `Trivy`
 
-### Build da imagem
+### Comandos úteis
 
 ```bash
 npm run docker:build
-```
-
-### Execução com Compose
-
-```bash
 docker compose up --build
-```
-
-### Validação do healthcheck
-
-```bash
 curl http://localhost:3000/health
-docker compose ps
 docker inspect --format='{{json .State.Health}}' product-reviews-api
 ```
 
@@ -222,27 +262,63 @@ Mais detalhes em [docs/docker.md](docs/docker.md).
 
 [Retornar ao índice](#indice)
 
+<a id="kubernetes-local-com-k3d"></a>
+
+## Kubernetes local com k3d
+
+O repositório agora inclui uma trilha opcional de cluster local para demonstrar repertório de plataforma sem transformar Kubernetes em requisito obrigatório para rodar o projeto.
+
+### O que foi adicionado
+
+- manifests em `k8s/`
+- `kustomization.yaml`
+- `Deployment`, `Service`, `Ingress`, `ConfigMap` e `Namespace`
+- scripts para criar cluster, fazer deploy, validar e limpar recursos
+
+### Fluxo recomendado
+
+```bash
+npm run k8s:build
+npm run k8s:cluster:create
+npm run k8s:deploy
+npm run k8s:smoke
+curl http://127.0.0.1:8080/health
+```
+
+### Como esse setup foi pensado
+
+- cluster local com `k3d`
+- exposição da aplicação por `Ingress` em `localhost:8080`
+- uso da mesma imagem Docker da aplicação
+- seed de dados JSON inicializado dentro do pod para manter a proposta simples do laboratório
+
+Documentação dedicada em [docs/kubernetes.md](docs/kubernetes.md).
+
+[Retornar ao índice](#indice)
+
 <a id="testes-e-qualidade"></a>
 
 ## Testes e qualidade
 
-O projeto foi construído para demonstrar disciplina de engenharia em uma base pequena, mas profissional.
+O projeto foi organizado para demonstrar disciplina de engenharia desde a base.
 
-### Cobertura de testes
+### Cobertura funcional
 
-- testes unitários para services, middlewares e validações
+- testes unitários para services, middlewares e config
 - testes de integração para endpoints principais
-- cobertura em terminal com Jest
+- coverage em terminal com Jest
 
 ### Ferramentas de qualidade
 
-- ESLint para consistência de código
-- Prettier para padronização de estilo
-- validação automatizada no pipeline de CI
-- SonarCloud opcional para ampliar inspeção de qualidade e manutenção
-- verificação preventiva para arquivos sensíveis versionados por engano
+| Ferramenta       | Papel no projeto                                            |
+| ---------------- | ----------------------------------------------------------- |
+| `Jest`           | valida comportamento da API                                 |
+| `ESLint`         | mantém consistência e legibilidade                          |
+| `Prettier`       | padroniza formatação                                        |
+| `verify:app`     | garante que a aplicação inicializa                          |
+| `security:check` | ajuda a evitar versionamento indevido de arquivos sensíveis |
 
-### Comandos
+### Comandos principais
 
 ```bash
 npm run test:unit
@@ -251,7 +327,6 @@ npm test
 npm run coverage
 npm run lint
 npm run format:check
-npm run security:check
 ```
 
 [Retornar ao índice](#indice)
@@ -260,38 +335,31 @@ npm run security:check
 
 ## Pipeline de CI
 
-O workflow de integração contínua está em [`.github/workflows/ci.yml`](.github/workflows/ci.yml) e executa em `push` para `main` e `pull_request`.
+O workflow de `CI` foi desenhado para ser enxuto, legível e útil para avaliação técnica.
 
-Etapas principais:
+### Etapas principais
 
-1. checkout do código
-2. setup do Node.js
+1. `Checkout`
+2. `Setup Node.js`
 3. `npm ci`
 4. verificação da aplicação
 5. testes unitários
 6. testes de integração
-7. análise de código com ESLint
+7. lint com ESLint
 8. coverage
-9. SonarCloud opcional
-10. Docker lint com Hadolint
-11. Docker build
-12. scan de vulnerabilidades com Trivy
-13. Docker push opcional para Docker Hub, apenas quando aplicável
+9. Docker lint com Hadolint
+10. Docker build
+11. scan de vulnerabilidades com Trivy
+12. Docker push opcional para Docker Hub
 
-Observações importantes:
+### Características importantes
 
-- o push da imagem ocorre apenas em `push` para `main`
-- o push é ignorado com segurança se os secrets não existirem
-- nenhum secret é exposto em logs ou documentação
-- a análise SonarCloud roda apenas se `SONAR_TOKEN` existir
+- permissões mínimas
+- `SonarCloud` opcional
+- push de imagem apenas em `push` para `main` com secrets configurados
+- falha real em vulnerabilidade `HIGH` ou `CRITICAL`
 
-### Como ativar o SonarCloud depois
-
-1. Crie um projeto no SonarCloud.
-2. Atualize os placeholders em [`sonar-project.properties`](sonar-project.properties):
-   `REPLACE_WITH_SONARCLOUD_PROJECT_KEY` e `REPLACE_WITH_SONARCLOUD_ORGANIZATION`.
-3. Adicione o secret `SONAR_TOKEN` no repositório do GitHub.
-4. Faça um novo `push` ou abra um novo `pull_request` para validar a análise.
+Mais detalhes em [docs/ci-cd-flow.md](docs/ci-cd-flow.md).
 
 [Retornar ao índice](#indice)
 
@@ -299,20 +367,23 @@ Observações importantes:
 
 ## Pipeline de CD simulada
 
-O workflow de entrega contínua está em [`.github/workflows/cd.yml`](.github/workflows/cd.yml) e é disparado manualmente via `workflow_dispatch`.
+O projeto não promete deploy real em cloud. Em vez disso, demonstra promoção de artefato de forma controlada e de baixo custo.
 
-Este fluxo **não representa deploy real em cloud**. Ele existe como simulação local controlada para demonstrar promoção entre ambientes usando a mesma imagem Docker.
+### O fluxo faz
 
-Fluxo resumido:
+- build da imagem Docker
+- deploy de homologação local na porta `3001`
+- smoke tests em `/health` e `/api/reviews`
+- deploy de produção simulada na porta `3002`
+- smoke test final
+- resumo no GitHub Actions Summary
 
-1. build da imagem Docker
-2. deploy de homologação no runner, na porta `3001`
-3. smoke test em `/health` e `/api/reviews`
-4. deploy de produção simulada na porta `3002`
-5. smoke test final
-6. resumo da execução no GitHub Actions Summary
+### Valor para portfólio
 
-Isso permite demonstrar CD sem depender de servidor externo, credenciais pagas ou infraestrutura dedicada.
+- mostra a separação entre CI e CD
+- usa o mesmo artefato entre ambientes
+- evidencia raciocínio de promoção e validação
+- não exige infraestrutura paga
 
 [Retornar ao índice](#indice)
 
@@ -320,31 +391,26 @@ Isso permite demonstrar CD sem depender de servidor externo, credenciais pagas o
 
 ## Segurança
 
-O projeto inclui controles de segurança compatíveis com o escopo de um laboratório técnico:
+Segurança aqui não é tratada como detalhe cosmético. Mesmo sendo um laboratório local, o projeto já incorpora controles úteis e visíveis.
 
-- `Trivy` para scan de vulnerabilidades da imagem Docker
-- `Hadolint` para revisão do Dockerfile
-- healthcheck para monitoramento básico do container
-- validação robusta de entrada no `POST /api/reviews`
-- secrets de Docker Hub usados apenas quando configurados no GitHub Actions
-- `security:check` para detectar arquivos sensíveis versionados por engano
+### O que está implementado
 
-### SonarCloud opcional
+- `Helmet` na aplicação
+- validação robusta no `POST /api/reviews`
+- middleware global de erro
+- imagem Docker não root
+- análise de vulnerabilidades com `Trivy`
+- Dockerfile revisado com `Hadolint`
+- suporte opcional a `SonarCloud`
+- `.env.example` no lugar de segredos reais
 
-O fluxo de arquitetura e CI considera o SonarCloud como extensão opcional. Ele não é obrigatório para o funcionamento do laboratório, mas está previsto como evolução natural para análise mais ampla de qualidade e dívida técnica. Sem `SONAR_TOKEN`, o pipeline continua funcionando normalmente.
+### Secrets opcionais
 
-### Higiene de segredos
+- `DOCKERHUB_USERNAME`
+- `DOCKERHUB_TOKEN`
+- `SONAR_TOKEN`
 
-O projeto foi configurado para evitar exposição acidental de dados sensíveis:
-
-- `.env` e `.env.*` ficam fora do versionamento
-- apenas `.env.example` é mantido no repositório
-- tokens reais não são documentados nem hardcoded
-- o comando abaixo ajuda a detectar arquivos sensíveis rastreados por engano:
-
-```bash
-npm run security:check
-```
+Mais detalhes em [docs/security.md](docs/security.md).
 
 [Retornar ao índice](#indice)
 
@@ -353,37 +419,43 @@ npm run security:check
 ## Estrutura do projeto
 
 ```text
-.
+product-reviews-cicd-pipeline-lab/
 ├── .github/workflows/
 ├── data/
 ├── docs/
+├── k8s/
 ├── public/
 ├── scripts/
 ├── src/
-│   ├── config/
-│   ├── controllers/
-│   ├── middlewares/
-│   ├── repositories/
-│   ├── routes/
-│   ├── services/
-│   ├── utils/
-│   └── validators/
 ├── tests/
-│   ├── integration/
-│   └── unit/
 ├── Dockerfile
 ├── docker-compose.yml
 ├── package.json
 └── README.md
 ```
 
-Leitura prática:
+### Pastas que merecem atenção
 
-- `src/`: núcleo da aplicação
-- `public/`: interface web
+- `src/`: aplicação Express organizada em camadas
 - `tests/`: testes unitários e de integração
-- `scripts/`: automações locais e simulação de CD
-- `docs/`: documentação técnica do laboratório
+- `scripts/`: automações locais de verificação, CD simulada e Kubernetes
+- `k8s/`: manifests para cluster local com `k3d`
+- `docs/`: documentação de apoio para avaliação técnica
+
+[Retornar ao índice](#indice)
+
+<a id="documentacao-complementar"></a>
+
+## Documentação complementar
+
+- [Arquitetura e fluxos](docs/architecture.md)
+- [Fluxo de CI/CD](docs/ci-cd-flow.md)
+- [Docker](docs/docker.md)
+- [Kubernetes local com k3d](docs/kubernetes.md)
+- [API](docs/api.md)
+- [Segurança](docs/security.md)
+- [Troubleshooting](docs/troubleshooting.md)
+- [Guia de evidências](docs/evidence-guide.md)
 
 [Retornar ao índice](#indice)
 
@@ -391,16 +463,18 @@ Leitura prática:
 
 ## Evidências sugeridas para prints
 
-Se este projeto for usado em currículo, portfólio ou LinkedIn, estas capturas ajudam a comunicar valor rapidamente:
+Para fortalecer o portfólio, vale registrar:
 
-- dashboard da aplicação em `http://localhost:3000`
-- retorno do endpoint `/api/reviews`
-- terminal com `npm run coverage`
-- terminal com `npm run lint`
-- `docker compose ps` com container saudável
-- job de CI passando no GitHub Actions
-- job de CD simulada com resumo no Actions Summary
-- etapa de Trivy executando no pipeline
+- interface web em `localhost:3000`
+- resposta de `/health` e `/api/reviews`
+- `npm run coverage`
+- `docker compose ps`
+- workflow de `CI` passando
+- workflow de `CD` simulada passando
+- `kubectl get pods,svc,ingress -n product-reviews-lab`
+- acesso ao app em `http://127.0.0.1:8080`
+
+Mais sugestões em [docs/evidence-guide.md](docs/evidence-guide.md).
 
 [Retornar ao índice](#indice)
 
@@ -408,35 +482,16 @@ Se este projeto for usado em currículo, portfólio ou LinkedIn, estas capturas 
 
 ## Troubleshooting
 
-### A porta `3000` já está em uso
+Os erros mais comuns já estão documentados, incluindo:
 
-Pare o processo anterior ou ajuste a porta antes de subir a aplicação.
+- problemas com `npm`
+- falhas de testes
+- build e healthcheck em Docker
+- portas ocupadas
+- execuções de `CI/CD`
+- erros de `k3d`, `kubectl` e Ingress local
 
-### O container sobe, mas não fica saudável
-
-Confira:
-
-```bash
-docker compose logs -f api
-curl http://localhost:3000/health
-```
-
-### O smoke test da CD simulada falha
-
-Garanta que os containers de homologação e produção simulada foram criados corretamente:
-
-```bash
-docker ps
-npm run cd:cleanup
-```
-
-### O Docker push não acontece no CI
-
-Isso é esperado quando:
-
-- o evento não é `push` na `main`
-- `DOCKERHUB_USERNAME` não está configurado
-- `DOCKERHUB_TOKEN` não está configurado
+Consulte [docs/troubleshooting.md](docs/troubleshooting.md).
 
 [Retornar ao índice](#indice)
 
@@ -444,14 +499,11 @@ Isso é esperado quando:
 
 ## Próximos passos
 
-Evoluções naturais para ampliar o laboratório:
-
-- integrar SonarCloud com métricas e quality gate
-- trocar o JSON local por banco de dados real
-- adicionar autenticação e autorização
-- incluir observabilidade com logs estruturados e métricas
+- adicionar persistência real com banco de dados
 - publicar imagem em registry com versionamento semântico
-- conectar a um ambiente real de homologação em nuvem, se houver contexto de infraestrutura
+- adicionar evidências visuais do fluxo Kubernetes
+- criar trilha opcional de deploy para cluster gerenciado
+- ampliar observabilidade com métricas e logs estruturados
 
 [Retornar ao índice](#indice)
 
@@ -462,6 +514,6 @@ Evoluções naturais para ampliar o laboratório:
 **Luiz André de Souza**
 
 - GitHub: [brodyandre](https://github.com/brodyandre)
-- LinkedIn: [Luiz André de Souza](https://www.linkedin.com/in/luiz-andre-souza-data-engineer/)
+- LinkedIn: [luiz-andre-souza-data-engineer](https://www.linkedin.com/in/luiz-andre-souza-data-engineer/)
 
 [Retornar ao índice](#indice)

@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: product-reviews-lab
+
+resources:
+  - namespace.yaml
+  - configmap.yaml
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml
+
+labels:
+  - includeSelectors: true
+    pairs:
+      app.kubernetes.io/name: product-reviews-api
+      app.kubernetes.io/part-of: product-reviews-cicd-pipeline-lab
+      app.kubernetes.io/managed-by: kubectl

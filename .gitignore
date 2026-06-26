@@ -26,3 +26,6 @@ pnpm-debug.log*
 .vscode/
 *.swp
 *.swo
+
+# Contexto local do Codex para este repositório
+.codex/

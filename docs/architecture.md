@@ -89,21 +89,42 @@ flowchart LR
 - `Repository`: encapsula o acesso ao mecanismo de persistência.
 - `JSON local`: armazena os dados de reviews sem depender de banco externo.
 
+## 5. Kubernetes Local com k3d
+
+```mermaid
+flowchart LR
+    A["Imagem Docker Local"] --> B["Cluster k3d"]
+    B --> C["Ingress :8080"]
+    C --> D["Service ClusterIP"]
+    D --> E["Deployment"]
+    E --> F["Pod Node.js"]
+    F --> G["Dados seed em volume local do pod"]
+```
+
+### O que este fluxo acrescenta
+
+- A mesma aplicação também pode ser validada em um cluster Kubernetes local.
+- O `k3d` oferece uma forma leve de demonstrar deploy em cluster usando Docker por baixo.
+- O `Ingress` expõe a aplicação em `http://127.0.0.1:8080`.
+- O `Deployment` mantém o pod da API, com probes de saúde e prontidão.
+- O seed de dados parte do JSON versionado no projeto e é copiado para um volume local do pod no startup.
+
 ## Como este laboratório se conecta a CI/CD real
 
-Embora este projeto use persistência local em JSON e uma entrega contínua simulada no próprio runner do GitHub Actions, ele representa conceitos reais de engenharia de software:
+Embora este projeto use persistência local em JSON, uma entrega contínua simulada no próprio runner do GitHub Actions e um cluster Kubernetes local opcional, ele representa conceitos reais de engenharia de software:
 
 - separação clara entre desenvolvimento, validação e entrega
 - testes automatizados antes de empacotar a aplicação
 - validação de qualidade de código e segurança da imagem Docker
 - promoção de um mesmo artefato entre ambientes
+- deploy opcional em cluster local para reforçar repertório de plataforma
 - observabilidade básica por meio de healthcheck e smoke tests
 
 Em um cenário de produção real, a evolução natural deste laboratório seria:
 
 - substituir o JSON local por banco de dados gerenciado
 - publicar a imagem em um registry corporativo
-- trocar o deploy local simulado por Kubernetes, ECS, App Service ou outra plataforma
+- promover o deploy local em `k3d` para um cluster gerenciado em Kubernetes, ECS, App Service ou outra plataforma
 - integrar SonarCloud, SAST, DAST e políticas de aprovação
 - adicionar rollback, versionamento formal e monitoramento operacional
 
