@@ -14,6 +14,8 @@ Capture:
 
 - tela inicial em `http://localhost:3000`
 - painel com métricas, resumo por produto e lista de reviews
+- hero em tema escuro com o bloco de contexto vivo
+- formulário com contador de caracteres e estados de validação
 
 ### 2. Endpoints da API
 
@@ -93,5 +95,15 @@ Ao usar esses prints no README, LinkedIn ou portfólio:
 - prefira imagens limpas e legíveis
 - destaque terminal, workflow e interface
 - evite capturas com informação irrelevante ou ruído visual
+
+## Convenção sugerida de arquivos
+
+- `docs/evidences/screenshots/01-dashboard-dark-theme.png`
+- `docs/evidences/screenshots/02-summary-and-reviews.png`
+- `docs/evidences/screenshots/03-form-validation-dark-theme.png`
+- `docs/evidences/screenshots/04-docker-compose-health.png`
+- `docs/evidences/screenshots/05-ci-success.png`
+- `docs/evidences/screenshots/06-kubernetes-local.png`
+- `docs/evidences/screenshots/07-cd-simulated-success.png`
 
 [Voltar ao README](../README.md)

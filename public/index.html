@@ -17,30 +17,61 @@
     <div class="page-shell">
       <header class="hero">
         <div class="hero__copy">
-          <span class="eyebrow">Product Reviews Lab</span>
+          <div class="hero__meta-row">
+            <span class="eyebrow eyebrow--live">
+              <span class="signal-dot" aria-hidden="true"></span>
+              Product Reviews Lab
+            </span>
+            <span class="hero__microcopy">Tema escuro · leitura orientada</span>
+          </div>
           <h1>
-            Uma experiencia de reviews pensada para leitura rapida e decisao
-            clara.
+            Reviews em modo escuro para ler melhor, decidir mais rapido e
+            enxergar padroes sem ruido.
           </h1>
           <p class="hero__text">
-            Explore a percepcao dos clientes, identifique tendencias por produto
-            e registre novos feedbacks em uma interface leve, elegante e
-            orientada a UX.
+            Explore a percepcao dos clientes em uma interface com contraste
+            alto, hierarquia visual limpa e foco no que realmente importa:
+            produto, satisfacao, origem e momento do feedback.
           </p>
           <div class="hero__actions">
             <a class="button button--primary" href="#nova-review"
-              >Nova review</a
+              >Registrar review</a
             >
-            <a class="button button--ghost" href="#visao-geral">Ver painel</a>
+            <a class="button button--ghost" href="#visao-geral"
+              >Explorar painel</a
+            >
+          </div>
+          <div class="hero__tags" aria-label="Destaques da experiencia">
+            <span class="hero-tag">Painel em tempo real</span>
+            <span class="hero-tag">Escala de cinza premium</span>
+            <span class="hero-tag">Busca e resumo instantaneos</span>
           </div>
         </div>
         <aside class="hero__spotlight">
-          <p class="spotlight__label">Leitura orientada por contexto</p>
-          <ul class="spotlight__list">
-            <li>Resumo visual por produto</li>
-            <li>Busca imediata entre opinioes</li>
-            <li>Formulario com feedback claro</li>
-          </ul>
+          <div class="spotlight__header">
+            <p class="spotlight__label">Pulse do painel</p>
+            <span class="spotlight__timestamp"
+              >Atualizacao viva da leitura</span
+            >
+          </div>
+          <div class="spotlight__stats" id="spotlight-stats" aria-live="polite">
+            <article class="spotlight-stat">
+              <span class="spotlight-stat__label">Painel</span>
+              <strong class="spotlight-stat__value">Aguardando</strong>
+            </article>
+            <article class="spotlight-stat">
+              <span class="spotlight-stat__label">Media</span>
+              <strong class="spotlight-stat__value">--</strong>
+            </article>
+            <article class="spotlight-stat">
+              <span class="spotlight-stat__label">Foco</span>
+              <strong class="spotlight-stat__value">--</strong>
+            </article>
+          </div>
+          <p class="spotlight__note" id="spotlight-note">
+            Assim que as reviews forem carregadas, este bloco destaca ritmo,
+            satisfacao e produto em evidencia.
+          </p>
         </aside>
       </header>
 
@@ -176,12 +207,18 @@
               </label>
 
               <label class="field field--full">
-                <span class="field__label">Comentario</span>
+                <span class="field__meta">
+                  <span class="field__label">Comentario</span>
+                  <span class="field__counter" id="comment-counter"
+                    >0 / 500</span
+                  >
+                </span>
                 <textarea
                   class="field__control field__control--textarea"
                   id="comment"
                   name="comment"
                   rows="5"
+                  maxlength="500"
                   placeholder="Descreva a experiencia do cliente com clareza e objetividade."
                 ></textarea>
                 <span class="field__error" data-error-for="comment"></span>

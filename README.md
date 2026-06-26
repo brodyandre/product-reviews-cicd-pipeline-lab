@@ -6,12 +6,13 @@
 ![Docker](https://img.shields.io/badge/Docker-Containerização-2496ED?logo=docker&logoColor=white)
 ![Kubernetes](https://img.shields.io/badge/Kubernetes-Local-326CE5?logo=kubernetes&logoColor=white)
 ![k3d](https://img.shields.io/badge/k3d-Cluster_Local-FFC61C)
+![UI Dark Theme](https://img.shields.io/badge/UI-Dark_Gray-6B7280)
 ![GitHub Actions](https://img.shields.io/badge/CI%2FCD-GitHub_Actions-2088FF?logo=github-actions&logoColor=white)
 ![Trivy](https://img.shields.io/badge/Security-Trivy-1904DA?logo=aqua&logoColor=white)
 ![SonarCloud Opcional](https://img.shields.io/badge/SonarCloud-Opcional-4E9BCD?logo=sonarcloud&logoColor=white)
 ![Licença MIT](https://img.shields.io/badge/Licença-MIT-6C757D)
 
-Aplicação local de reviews de produtos construída com `Node.js` e `Express` para demonstrar, em um único laboratório, API REST, testes, Docker, GitHub Actions, segurança de imagem, entrega contínua simulada e deploy opcional em `Kubernetes local` com `k3d`.
+Aplicação local de reviews de produtos construída com `Node.js` e `Express` para demonstrar, em um único laboratório, API REST, testes, Docker, GitHub Actions, segurança de imagem, entrega contínua simulada, deploy opcional em `Kubernetes local` com `k3d` e uma interface em tema escuro pensada para leitura rápida e UX mais refinada.
 
 > Este projeto foi pensado para portfólio técnico. Ele não afirma existir em cloud pública. A entrega contínua continua sendo uma simulação local controlada, enquanto o suporte a Kubernetes foi adicionado como trilha opcional de evolução e demonstração de plataforma.
 
@@ -21,6 +22,7 @@ Aplicação local de reviews de produtos construída com `Node.js` e `Express` p
 
 - [Visão geral](#visao-geral)
 - [Destaques técnicos](#destaques-tecnicos)
+- [Experiência visual](#experiencia-visual)
 - [Arquitetura e fluxos](#arquitetura-e-fluxos)
 - [Quick start](#quick-start)
 - [Comandos locais](#comandos-locais)
@@ -48,7 +50,9 @@ O `product-reviews-cicd-pipeline-lab` foi desenhado para comunicar maturidade t�
 - execução containerizada com `Docker Compose`
 - execução opcional em `Kubernetes local` com `k3d`
 
-Isso torna o projeto útil tanto para avaliação de backend quanto para demonstração de práticas de plataforma, qualidade e segurança.
+Na interface web, o projeto agora adota um tema escuro em escala de cinza com contraste alto, cards mais elegantes, hierarquia visual mais clara e feedbacks mais visíveis no fluxo de leitura e cadastro.
+
+Isso torna o projeto útil tanto para avaliação de backend quanto para demonstração de práticas de plataforma, qualidade, segurança e sensibilidade de produto.
 
 [Retornar ao índice](#indice)
 
@@ -56,17 +60,40 @@ Isso torna o projeto útil tanto para avaliação de backend quanto para demonst
 
 ## Destaques técnicos
 
-| Pilar        | Implementação neste projeto                                                 |
-| ------------ | --------------------------------------------------------------------------- |
-| API          | Express com rotas, controllers, services, repository e validação dedicada   |
-| Persistência | JSON local para facilitar execução e avaliação                              |
-| UX           | Interface web leve, clara e orientada a leitura rápida                      |
-| Testes       | Jest com testes unitários e de integração                                   |
-| Qualidade    | ESLint, Prettier, coverage e verificação de inicialização                   |
-| Containers   | Dockerfile multi-stage, usuário não root e healthcheck                      |
-| CI           | GitHub Actions com lint, testes, coverage, Hadolint, Trivy e push opcional  |
-| CD           | Simulação de promoção entre homologação e produção no próprio runner        |
-| Plataforma   | Trilha opcional de Kubernetes local com `k3d`, Ingress e `kubectl apply -k` |
+| Pilar        | Implementação neste projeto                                                                   |
+| ------------ | --------------------------------------------------------------------------------------------- |
+| API          | Express com rotas, controllers, services, repository e validação dedicada                     |
+| Persistência | JSON local para facilitar execução e avaliação                                                |
+| UX           | Tema escuro em escala de cinza, leitura orientada, busca rápida e cadastro com feedback claro |
+| Testes       | Jest com testes unitários e de integração                                                     |
+| Qualidade    | ESLint, Prettier, coverage e verificação de inicialização                                     |
+| Containers   | Dockerfile multi-stage, usuário não root e healthcheck                                        |
+| CI           | GitHub Actions com lint, testes, coverage, Hadolint, Trivy e push opcional                    |
+| CD           | Simulação de promoção entre homologação e produção no próprio runner                          |
+| Plataforma   | Trilha opcional de Kubernetes local com `k3d`, Ingress e `kubectl apply -k`                   |
+
+[Retornar ao índice](#indice)
+
+<a id="experiencia-visual"></a>
+
+## Experiência visual
+
+A aplicação foi evoluída para uma linguagem mais sóbria e premium, sem cair em visual genérico. O objetivo foi melhorar foco, legibilidade e percepção de qualidade já no primeiro contato com a interface.
+
+### O que mudou na interface
+
+- tema escuro em escala de cinza, com fundo grafite e superfícies profundas
+- hero mais editorial, com contraste alto e sensação mais moderna
+- cards de métricas, resumo e reviews com presença visual melhor definida
+- bloco de contexto vivo no topo da página, destacando volume, média e foco atual
+- formulário com contador de caracteres e feedback visual mais claro
+- microinterações mais suaves em botões, filtros, pills e cards
+
+### O que isso valoriza para o portfólio
+
+- demonstra atenção à experiência do usuário, não só à API
+- reforça maturidade visual sem depender de frameworks pesados
+- deixa a aplicação mais apresentável para prints, README e LinkedIn
 
 [Retornar ao índice](#indice)
 
@@ -142,6 +169,13 @@ Aplicação disponível em `http://localhost:3000`.
 | `Node.js local`    | desenvolvimento rápido        | `http://localhost:3000` |
 | `Docker Compose`   | execução reproduzível         | `http://localhost:3000` |
 | `k3d + Kubernetes` | demonstração de cluster local | `http://127.0.0.1:8080` |
+
+### O que vale observar na interface
+
+- hero com leitura de contexto no topo
+- métricas e resumo por produto em destaque
+- busca e filtro de reviews em fluxo curto
+- formulário em tema escuro com validação clara
 
 [Retornar ao índice](#indice)
 
@@ -441,6 +475,7 @@ product-reviews-cicd-pipeline-lab/
 - `scripts/`: automações locais de verificação, CD simulada e Kubernetes
 - `k8s/`: manifests para cluster local com `k3d`
 - `docs/`: documentação de apoio para avaliação técnica
+- `docs/evidences/screenshots/`: local sugerido para prints que serão usados no README
 
 [Retornar ao índice](#indice)
 
@@ -473,6 +508,41 @@ Para fortalecer o portfólio, vale registrar:
 - workflow de `CD` simulada passando
 - `kubectl get pods,svc,ingress -n product-reviews-lab`
 - acesso ao app em `http://127.0.0.1:8080`
+
+### Galeria pronta para screenshots
+
+Sugestão de pasta para os arquivos:
+
+- `docs/evidences/screenshots/`
+
+Sugestão de nomes:
+
+| Arquivo sugerido                    | Conteúdo                                      |
+| ----------------------------------- | --------------------------------------------- |
+| `01-dashboard-dark-theme.png`       | hero, métricas e visual geral da aplicação    |
+| `02-summary-and-reviews.png`        | resumo por produto e lista de reviews         |
+| `03-form-validation-dark-theme.png` | formulário e estados de validação             |
+| `04-docker-compose-health.png`      | container saudável com Docker Compose         |
+| `05-ci-success.png`                 | pipeline de CI passando                       |
+| `06-kubernetes-local.png`           | `kubectl get pods,svc,ingress` e acesso local |
+| `07-cd-simulated-success.png`       | workflow de CD simulada concluído             |
+
+### Bloco pronto para inserir no README depois
+
+Quando os prints existirem, você pode colar algo como:
+
+```md
+## Galeria visual
+
+![Dashboard em tema escuro](docs/evidences/screenshots/01-dashboard-dark-theme.png)
+![Resumo por produto e reviews](docs/evidences/screenshots/02-summary-and-reviews.png)
+![Formulário com validação](docs/evidences/screenshots/03-form-validation-dark-theme.png)
+
+![Docker Compose saudável](docs/evidences/screenshots/04-docker-compose-health.png)
+![CI verde no GitHub Actions](docs/evidences/screenshots/05-ci-success.png)
+![Kubernetes local com k3d](docs/evidences/screenshots/06-kubernetes-local.png)
+![CD simulada concluída](docs/evidences/screenshots/07-cd-simulated-success.png)
+```
 
 Mais sugestões em [docs/evidence-guide.md](docs/evidence-guide.md).
 

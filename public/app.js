@@ -12,10 +12,14 @@ const elements = {
   productPills: document.querySelector('#product-pills'),
   summaryCard: document.querySelector('#summary-card'),
   reviewsList: document.querySelector('#reviews-list'),
+  spotlightStats: document.querySelector('#spotlight-stats'),
+  spotlightNote: document.querySelector('#spotlight-note'),
   sourceFilter: document.querySelector('#source-filter'),
   searchInput: document.querySelector('#search-input'),
   reviewForm: document.querySelector('#review-form'),
   submitButton: document.querySelector('#submit-button'),
+  commentField: document.querySelector('#comment'),
+  commentCounter: document.querySelector('#comment-counter'),
   statusBanner: document.querySelector('#status-banner'),
 };
 const productIdPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/i;
@@ -33,6 +37,16 @@ function formatNumber(value) {
     minimumFractionDigits: 0,
     maximumFractionDigits: 2,
   }).format(value);
+}
+
+function getAverageRating(reviews) {
+  if (reviews.length === 0) {
+    return 0;
+  }
+
+  return (
+    reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
+  );
 }
 
 function getSources(reviews) {
@@ -162,6 +176,66 @@ function renderMetrics() {
       `;
     })
     .join('');
+
+  renderSpotlight();
+}
+
+function renderSpotlight() {
+  if (!elements.spotlightStats || !elements.spotlightNote) {
+    return;
+  }
+
+  if (state.allReviews.length === 0) {
+    elements.spotlightStats.innerHTML = `
+      <article class="spotlight-stat">
+        <span class="spotlight-stat__label">Painel</span>
+        <strong class="spotlight-stat__value">Vazio</strong>
+      </article>
+      <article class="spotlight-stat">
+        <span class="spotlight-stat__label">Media</span>
+        <strong class="spotlight-stat__value">0.0</strong>
+      </article>
+      <article class="spotlight-stat">
+        <span class="spotlight-stat__label">Foco</span>
+        <strong class="spotlight-stat__value">Sem dados</strong>
+      </article>
+    `;
+    elements.spotlightNote.textContent =
+      'Adicione a primeira review para ativar a leitura dinamica do painel.';
+    return;
+  }
+
+  const average = getAverageRating(state.allReviews);
+  const latestReview = state.allReviews[0];
+  const topProduct = getProducts(state.allReviews)[0];
+  const focusedProduct =
+    state.summary?.productId ||
+    state.selectedProductId ||
+    topProduct?.productId ||
+    '-';
+  const focusedProductCount =
+    state.summary?.totalReviews || topProduct?.count || state.allReviews.length;
+
+  elements.spotlightStats.innerHTML = `
+    <article class="spotlight-stat">
+      <span class="spotlight-stat__label">Painel</span>
+      <strong class="spotlight-stat__value">${escapeHtml(formatNumber(state.allReviews.length))}</strong>
+    </article>
+    <article class="spotlight-stat">
+      <span class="spotlight-stat__label">Media</span>
+      <strong class="spotlight-stat__value">${escapeHtml(formatNumber(Number(average.toFixed(1))))}</strong>
+    </article>
+    <article class="spotlight-stat">
+      <span class="spotlight-stat__label">Foco</span>
+      <strong class="spotlight-stat__value">${escapeHtml(focusedProduct)}</strong>
+    </article>
+  `;
+
+  elements.spotlightNote.textContent = `Ultimo sinal em ${formatDate(
+    latestReview.createdAt
+  )}. ${focusedProduct} concentra ${focusedProductCount} review${
+    focusedProductCount === 1 ? '' : 's'
+  } e o canal ${latestReview.source} foi o mais recente a reagir.`;
 }
 
 function renderProductPills() {
@@ -203,6 +277,7 @@ function renderSummary() {
         <span>O resumo aparece aqui assim que houver um produto ativo.</span>
       </div>
     `;
+    renderSpotlight();
     return;
   }
 
@@ -256,6 +331,8 @@ function renderSummary() {
       }
     </div>
   `;
+
+  renderSpotlight();
 }
 
 function renderSourceFilter() {
@@ -422,6 +499,19 @@ function clearErrors() {
   document.querySelectorAll('[data-error-for]').forEach((message) => {
     message.textContent = '';
   });
+}
+
+function updateCommentCounter() {
+  if (!elements.commentField || !elements.commentCounter) {
+    return;
+  }
+
+  const currentLength = elements.commentField.value.length;
+  elements.commentCounter.textContent = `${currentLength} / 500`;
+  elements.commentCounter.classList.toggle(
+    'field__counter--warning',
+    currentLength >= 440
+  );
 }
 
 function showFieldErrors(errors) {
@@ -591,6 +681,7 @@ async function handleSubmit(event) {
     elements.searchInput.value = '';
     elements.sourceFilter.value = '';
     elements.reviewForm.reset();
+    updateCommentCounter();
     renderMetrics();
     renderSourceFilter();
     renderProductPills();
@@ -630,11 +721,13 @@ function bindEvents() {
     applyFilters();
   });
 
+  elements.commentField?.addEventListener('input', updateCommentCounter);
   elements.reviewForm.addEventListener('submit', handleSubmit);
 }
 
 async function initialize() {
   bindEvents();
+  updateCommentCounter();
 
   try {
     await loadDashboard();
