@@ -1,4 +1,4 @@
-# Product Reviews CI/CD + Kubernetes Lab
+# 🚀 Product Reviews CI/CD + Kubernetes Lab
 
 ![Node.js 20](https://img.shields.io/badge/Node.js-20-339933?logo=node.js&logoColor=white)
 ![Express](https://img.shields.io/badge/Express-4.x-000000?logo=express&logoColor=white)
@@ -11,6 +11,8 @@
 ![Trivy](https://img.shields.io/badge/Security-Trivy-1904DA?logo=aqua&logoColor=white)
 ![SonarCloud Opcional](https://img.shields.io/badge/SonarCloud-Opcional-4E9BCD?logo=sonarcloud&logoColor=white)
 ![Licença MIT](https://img.shields.io/badge/Licença-MIT-6C757D)
+
+🎯 API REST • 🧪 Testes automatizados • 🐳 Docker • ☸️ Kubernetes local • 🔐 Segurança • ⚙️ GitHub Actions
 
 Aplicação local de reviews de produtos construída com `Node.js` e `Express` para demonstrar, em um único laboratório, API REST, testes, Docker, GitHub Actions, segurança de imagem, entrega contínua simulada, deploy opcional em `Kubernetes local` com `k3d` e uma interface em tema escuro pensada para leitura rápida e UX mais refinada.
 
@@ -35,14 +37,13 @@ Aplicação local de reviews de produtos construída com `Node.js` e `Express` p
 - [Segurança](#seguranca)
 - [Estrutura do projeto](#estrutura-do-projeto)
 - [Documentação complementar](#documentacao-complementar)
-- [Organização de screenshots](#organizacao-de-screenshots)
 - [Troubleshooting](#troubleshooting)
 - [Próximos passos](#proximos-passos)
 - [Autor](#autor)
 
 <a id="visao-geral"></a>
 
-## Visão geral
+## 🎯 Visão geral
 
 O `product-reviews-cicd-pipeline-lab` foi desenhado para comunicar maturidade técnica de forma rápida. A aplicação entrega uma experiência local agradável, uma API organizada em camadas, persistência simples em JSON, testes automatizados, empacotamento com Docker e dois caminhos de operação de infraestrutura:
 
@@ -58,7 +59,7 @@ Isso torna o projeto útil tanto para avaliação de backend quanto para demonst
 
 <a id="destaques-tecnicos"></a>
 
-## Destaques técnicos
+## 🧩 Destaques técnicos
 
 | Pilar        | Implementação neste projeto                                                                   |
 | ------------ | --------------------------------------------------------------------------------------------- |
@@ -76,7 +77,7 @@ Isso torna o projeto útil tanto para avaliação de backend quanto para demonst
 
 <a id="experiencia-visual"></a>
 
-## Experiência visual
+## 🌘 Experiência visual
 
 A aplicação foi evoluída para uma linguagem mais sóbria e premium, sem cair em visual genérico. O objetivo foi melhorar foco, legibilidade e percepção de qualidade já no primeiro contato com a interface.
 
@@ -95,11 +96,19 @@ A aplicação foi evoluída para uma linguagem mais sóbria e premium, sem cair 
 - reforça maturidade visual sem depender de frameworks pesados
 - deixa a aplicação mais apresentável para prints, README e LinkedIn
 
+### 📸 Evidências da interface
+
+| Dashboard principal                                                                 | Resumo e reviews                                                                       |
+| ----------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| ![Dashboard em tema escuro](docs/evidences/screenshots/01-dashboard-dark-theme.png) | ![Resumo por produto e reviews](docs/evidences/screenshots/02-summary-and-reviews.png) |
+
+![Formulário com validação em tema escuro](docs/evidences/screenshots/03-form-validation-dark-theme.png)
+
 [Retornar ao índice](#indice)
 
 <a id="arquitetura-e-fluxos"></a>
 
-## Arquitetura e fluxos
+## 🏗️ Arquitetura e fluxos
 
 Os diagramas completos estão em [docs/architecture.md](docs/architecture.md). Abaixo estão os recortes mais úteis para leitura rápida no GitHub.
 
@@ -143,7 +152,7 @@ flowchart LR
 
 <a id="quick-start"></a>
 
-## Quick start
+## ⚡ Quick start
 
 ### Requisitos
 
@@ -181,7 +190,7 @@ Aplicação disponível em `http://localhost:3000`.
 
 <a id="comandos-locais"></a>
 
-## Comandos locais
+## 🛠️ Comandos locais
 
 ### Aplicação e qualidade
 
@@ -233,7 +242,7 @@ npm run cd:cleanup
 
 <a id="endpoints-da-api"></a>
 
-## Endpoints da API
+## 🔌 Endpoints da API
 
 | Método | Rota                               | Descrição                                 |
 | ------ | ---------------------------------- | ----------------------------------------- |
@@ -270,7 +279,7 @@ Mais detalhes em [docs/api.md](docs/api.md).
 
 <a id="docker"></a>
 
-## Docker
+## 🐳 Docker
 
 O projeto usa Docker como trilha principal de empacotamento e execução reproduzível.
 
@@ -292,7 +301,11 @@ curl http://localhost:3000/health
 docker inspect --format='{{json .State.Health}}' product-reviews-api
 ```
 
-Os prints de Docker fazem mais sentido aqui no README, ao lado dos comandos e da validação do `healthcheck`.
+### 📸 Evidências da execução containerizada
+
+| Docker Compose                                                                      | Healthcheck detalhado                                                                               |
+| ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| ![Docker Compose saudável](docs/evidences/screenshots/04-docker-compose-health.png) | ![Detalhe do healthcheck do container](docs/evidences/screenshots/04-docker-healthcheck-detail.png) |
 
 Mais detalhes em [docs/docker.md](docs/docker.md).
 
@@ -300,7 +313,7 @@ Mais detalhes em [docs/docker.md](docs/docker.md).
 
 <a id="kubernetes-local-com-k3d"></a>
 
-## Kubernetes local com k3d
+## ☸️ Kubernetes local com k3d
 
 O repositório agora inclui uma trilha opcional de cluster local para demonstrar repertório de plataforma sem transformar Kubernetes em requisito obrigatório para rodar o projeto.
 
@@ -328,7 +341,11 @@ curl http://127.0.0.1:8080/health
 - uso da mesma imagem Docker da aplicação
 - seed de dados JSON inicializado dentro do pod para manter a proposta simples do laboratório
 
-Quando você capturar evidências de Kubernetes, o ideal é inseri-las nesta seção, junto do fluxo local e da saída de `kubectl`.
+### 📸 Evidências da trilha Kubernetes
+
+| Recursos no cluster                                                            | Aplicação exposta via Ingress                                                  |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| ![Status do cluster local](docs/evidences/screenshots/06-kubernetes-local.png) | ![Aplicação rodando no k3d](docs/evidences/screenshots/06-k8s-app-running.png) |
 
 Documentação dedicada em [docs/kubernetes.md](docs/kubernetes.md).
 
@@ -336,7 +353,7 @@ Documentação dedicada em [docs/kubernetes.md](docs/kubernetes.md).
 
 <a id="testes-e-qualidade"></a>
 
-## Testes e qualidade
+## 🧪 Testes e qualidade
 
 O projeto foi organizado para demonstrar disciplina de engenharia desde a base.
 
@@ -371,7 +388,7 @@ npm run format:check
 
 <a id="pipeline-de-ci"></a>
 
-## Pipeline de CI
+## 🔄 Pipeline de CI
 
 O workflow de `CI` foi desenhado para ser enxuto, legível e útil para avaliação técnica.
 
@@ -397,7 +414,9 @@ O workflow de `CI` foi desenhado para ser enxuto, legível e útil para avaliaç
 - push de imagem apenas em `push` para `main` com secrets configurados
 - falha real em vulnerabilidade `HIGH` ou `CRITICAL`
 
-Os prints do GitHub Actions devem ficar nesta seção, próximos das etapas de `lint`, `coverage`, `Trivy` e `Docker build`.
+### 📸 Evidência da esteira de CI
+
+![Pipeline de CI executando lint, coverage, Hadolint, Docker build e Trivy](docs/evidences/screenshots/05-ci-success.png)
 
 Mais detalhes em [docs/ci-cd-flow.md](docs/ci-cd-flow.md).
 
@@ -405,7 +424,7 @@ Mais detalhes em [docs/ci-cd-flow.md](docs/ci-cd-flow.md).
 
 <a id="pipeline-de-cd-simulada"></a>
 
-## Pipeline de CD simulada
+## 🚚 Pipeline de CD simulada
 
 O projeto não promete deploy real em cloud. Em vez disso, demonstra promoção de artefato de forma controlada e de baixo custo.
 
@@ -425,13 +444,17 @@ O projeto não promete deploy real em cloud. Em vez disso, demonstra promoção 
 - evidencia raciocínio de promoção e validação
 - não exige infraestrutura paga
 
-As evidências de homologação e produção simulada funcionam melhor aqui, ao lado do fluxo de promoção entre as portas `3001` e `3002`.
+### 📸 Evidências da entrega contínua simulada
+
+| Ambientes locais                                                                                         | Summary no GitHub Actions                                                           |
+| -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| ![Containers de homologação e produção simulada](docs/evidences/screenshots/07-cd-simulated-success.png) | ![Resumo da CD Local Simulada](docs/evidences/screenshots/08-cd-github-summary.png) |
 
 [Retornar ao índice](#indice)
 
 <a id="seguranca"></a>
 
-## Segurança
+## 🔐 Segurança
 
 Segurança aqui não é tratada como detalhe cosmético. Mesmo sendo um laboratório local, o projeto já incorpora controles úteis e visíveis.
 
@@ -458,7 +481,7 @@ Mais detalhes em [docs/security.md](docs/security.md).
 
 <a id="estrutura-do-projeto"></a>
 
-## Estrutura do projeto
+## 🗂️ Estrutura do projeto
 
 ```text
 product-reviews-cicd-pipeline-lab/
@@ -482,14 +505,14 @@ product-reviews-cicd-pipeline-lab/
 - `tests/`: testes unitários e de integração
 - `scripts/`: automações locais de verificação, CD simulada e Kubernetes
 - `k8s/`: manifests para cluster local com `k3d`
-- `docs/`: documentação de apoio para avaliação técnica
-- `docs/evidences/screenshots/`: local sugerido para prints que serão usados no README
+- `docs/`: documentação de apoio, diagramas, troubleshooting e API
+- `docs/evidences/`: evidências JSON, saídas de terminal e screenshots usados no portfólio
 
 [Retornar ao índice](#indice)
 
 <a id="documentacao-complementar"></a>
 
-## Documentação complementar
+## 📚 Documentação complementar
 
 - [Arquitetura e fluxos](docs/architecture.md)
 - [Fluxo de CI/CD](docs/ci-cd-flow.md)
@@ -499,51 +522,13 @@ product-reviews-cicd-pipeline-lab/
 - [Segurança](docs/security.md)
 - [Troubleshooting](docs/troubleshooting.md)
 - [Guia de evidências](docs/evidence-guide.md)
-
-[Retornar ao índice](#indice)
-
-<a id="organizacao-de-screenshots"></a>
-
-## Organização de screenshots
-
-Como os prints serão inseridos nos contextos corretos do README, não faz sentido manter uma galeria isolada no fim do documento. A melhor leitura é:
-
-- interface e UX na seção `Experiência visual`
-- evidências de API perto de `Endpoints da API`
-- evidências de Docker na seção `Docker`
-- evidências de CI na seção `Pipeline de CI`
-- evidências de Kubernetes na seção `Kubernetes local com k3d`
-- evidências de CD na seção `Pipeline de CD simulada`
-
-Para manter consistência, vale continuar usando a pasta `docs/evidences/screenshots/` e nomes previsíveis para os arquivos.
-
-Para acelerar a preparação, o projeto agora também oferece:
-
-```bash
-npm run evidence:prepare
-npm run evidence:local
-npm run evidence:docker
-npm run evidence:k8s
-npm run evidence:cd
-```
-
-| Arquivo sugerido                    | Contexto ideal no README               |
-| ----------------------------------- | -------------------------------------- |
-| `01-dashboard-dark-theme.png`       | experiência visual e visão geral       |
-| `02-summary-and-reviews.png`        | experiência visual                     |
-| `03-form-validation-dark-theme.png` | experiência visual ou endpoints da API |
-| `04-docker-compose-health.png`      | Docker                                 |
-| `05-ci-success.png`                 | Pipeline de CI                         |
-| `06-kubernetes-local.png`           | Kubernetes local com k3d               |
-| `07-cd-simulated-success.png`       | Pipeline de CD simulada                |
-
-O checklist completo de captura continua em [docs/evidence-guide.md](docs/evidence-guide.md), com apoio operacional adicional em [docs/evidences/capture-checklist.md](docs/evidences/capture-checklist.md).
+- [Checklist de captura](docs/evidences/capture-checklist.md)
 
 [Retornar ao índice](#indice)
 
 <a id="troubleshooting"></a>
 
-## Troubleshooting
+## 🆘 Troubleshooting
 
 Os erros mais comuns já estão documentados, incluindo:
 
@@ -560,19 +545,19 @@ Consulte [docs/troubleshooting.md](docs/troubleshooting.md).
 
 <a id="proximos-passos"></a>
 
-## Próximos passos
+## 🚀 Próximos passos
 
 - adicionar persistência real com banco de dados
-- publicar imagem em registry com versionamento semântico
-- adicionar evidências visuais do fluxo Kubernetes
-- criar trilha opcional de deploy para cluster gerenciado
-- ampliar observabilidade com métricas e logs estruturados
+- publicar imagem com versionamento semântico em registry
+- ampliar observabilidade com métricas, health metrics e logs estruturados
+- adicionar testes de contrato e smoke tests mais amplos
+- criar uma trilha opcional de deploy para cluster gerenciado
 
 [Retornar ao índice](#indice)
 
 <a id="autor"></a>
 
-## Autor
+## 👤 Autor
 
 **Luiz André de Souza**
 
