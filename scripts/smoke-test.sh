@@ -17,7 +17,7 @@ fetch_with_retry() {
   local attempt response
 
   for attempt in $(seq 1 "${MAX_ATTEMPTS}"); do
-    if response="$(curl --silent --show-error --fail "${url}")"; then
+    if response="$(curl --silent --fail "${url}" 2>/dev/null)"; then
       printf '%s' "${response}"
       return 0
     fi

@@ -1,17 +1,18 @@
 
 > product-reviews-cicd-pipeline-lab@1.0.0 test
-> jest --runInBand
+> jest --runInBand --forceExit
 
-PASS tests/integration/reviews.api.test.js (8.454 s)
-PASS tests/unit/middlewares/notFoundHandler.test.js
-PASS tests/unit/services/productService.test.js
+PASS tests/integration/reviews.api.test.js (13.741 s)
+PASS tests/unit/controllers/healthController.test.js
 PASS tests/unit/config/env.test.js
 PASS tests/unit/services/reviewService.test.js
-PASS tests/unit/controllers/healthController.test.js
+PASS tests/unit/services/productService.test.js
 PASS tests/unit/middlewares/errorHandler.test.js
+PASS tests/unit/middlewares/notFoundHandler.test.js
 
 Test Suites: 7 passed, 7 total
 Tests:       25 passed, 25 total
 Snapshots:   0 total
-Time:        12.264 s, estimated 15 s
+Time:        22.194 s, estimated 24 s
 Ran all test suites.
+Force exiting Jest: Have you considered using `--detectOpenHandles` to detect async operations that kept running after all tests finished?

@@ -6,6 +6,22 @@
 
 Este guia ajuda a coletar prints que reforçam empregabilidade, clareza técnica e maturidade de execução no portfólio.
 
+No `README`, prefira distribuir os prints nas seções correspondentes em vez de concentrar tudo em uma galeria única no final.
+
+## Automação de apoio
+
+Antes dos prints manuais, você pode preparar e regenerar evidências de terminal com:
+
+```bash
+npm run evidence:prepare
+npm run evidence:local
+npm run evidence:docker
+npm run evidence:k8s
+npm run evidence:cd
+```
+
+O roteiro resumido de captura fica em [docs/evidences/capture-checklist.md](evidences/capture-checklist.md).
+
 ## Prints recomendados
 
 ### 1. Interface da aplicação

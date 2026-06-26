@@ -2,15 +2,6 @@
   "success": true,
   "data": [
     {
-      "id": "d5a76e35-e627-48a8-99da-9926b65cd117",
-      "productId": "notebook-pro-15",
-      "customerName": "Marina Costa",
-      "rating": 5,
-      "comment": "Excelente custo-beneficio para uso profissional.",
-      "source": "website",
-      "createdAt": "2026-06-26T16:56:16.365Z"
-    },
-    {
       "id": "rev_005",
       "productId": "smartwatch-active",
       "customerName": "Fernanda Alves",
@@ -57,6 +48,6 @@
     }
   ],
   "meta": {
-    "count": 6
+    "count": 5
   }
 }

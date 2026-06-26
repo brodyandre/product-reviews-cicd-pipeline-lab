@@ -1,8 +1,5 @@
 {
-  "success": true,
-  "data": {
-    "status": "ok",
-    "service": "product-reviews-api",
-    "timestamp": "2026-06-25T17:43:40.358Z"
-  }
+  "Status": "starting",
+  "FailingStreak": 0,
+  "Log": []
 }

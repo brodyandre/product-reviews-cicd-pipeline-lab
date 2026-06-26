@@ -39,7 +39,12 @@
     "smoke:homolog": "bash scripts/smoke-test.sh http://127.0.0.1:3001",
     "smoke:production": "bash scripts/smoke-test.sh http://127.0.0.1:3002",
     "smoke": "node scripts/smoke-test.js",
-    "reset-data": "node scripts/reset-data.js"
+    "reset-data": "node scripts/reset-data.js",
+    "evidence:prepare": "bash scripts/prepare-evidence-capture.sh",
+    "evidence:local": "bash scripts/collect-local-evidence.sh",
+    "evidence:docker": "bash scripts/collect-docker-evidence.sh",
+    "evidence:k8s": "bash scripts/collect-k8s-evidence.sh",
+    "evidence:cd": "bash scripts/collect-cd-evidence.sh"
   },
   "keywords": [
     "nodejs",

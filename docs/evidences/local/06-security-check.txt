@@ -1,0 +1,5 @@
+
+> product-reviews-cicd-pipeline-lab@1.0.0 security:check
+> bash scripts/check-sensitive-files.sh
+
+Nenhum arquivo sensivel versionado foi detectado.

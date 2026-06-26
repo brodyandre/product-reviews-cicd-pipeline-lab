@@ -1,0 +1,8 @@
+NAME                                       READY   STATUS    RESTARTS   AGE
+pod/product-reviews-api-6869798dcb-tfh5x   1/1     Running   0          11s
+
+NAME                          TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+service/product-reviews-api   ClusterIP   10.43.221.144   <none>        80/TCP    11s
+
+NAME                                            CLASS     HOSTS   ADDRESS                     PORTS   AGE
+ingress.networking.k8s.io/product-reviews-api   traefik   *       192.168.32.3,192.168.32.4   80      11s

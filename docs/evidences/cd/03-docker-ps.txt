@@ -1,0 +1,21 @@
+NAMES                             STATUS                            PORTS
+product-reviews-production        Up 3 seconds (health: starting)   0.0.0.0:3002->3000/tcp, [::]:3002->3000/tcp
+product-reviews-homolog           Up 7 seconds (healthy)            0.0.0.0:3001->3000/tcp, [::]:3001->3000/tcp
+data-quality-lab-postgres         Up 2 days (healthy)               0.0.0.0:55432->5432/tcp, [::]:55432->5432/tcp
+local-azurite                     Up 3 days (healthy)               0.0.0.0:10000-10002->10000-10002/tcp, [::]:10000-10002->10000-10002/tcp
+local-redpanda                    Up 3 days (healthy)               0.0.0.0:9092->9092/tcp, [::]:9092->9092/tcp, 0.0.0.0:9644->9644/tcp, [::]:9644->9644/tcp, 0.0.0.0:29092->29092/tcp, [::]:29092->29092/tcp
+lakehouse-airflow-dag-processor   Up 3 days (healthy)               8080/tcp
+lakehouse-airflow-triggerer       Up 3 days (healthy)               8080/tcp
+lakehouse-airflow-scheduler       Up 3 days (healthy)               8080/tcp
+lakehouse-airflow-api-core        Up 3 days (healthy)               0.0.0.0:8088->8080/tcp, [::]:8088->8080/tcp
+lakehouse-airflow-api-execution   Up 3 days (healthy)               0.0.0.0:8089->8081/tcp, [::]:8089->8081/tcp
+lakehouse-spark-connect           Up 3 days (healthy)               0.0.0.0:15002->15002/tcp, [::]:15002->15002/tcp
+lakehouse-spark-worker            Up 3 days                         0.0.0.0:18081->8081/tcp, [::]:18081->8081/tcp
+lakehouse-spark-master            Up 3 days                         0.0.0.0:7077->7077/tcp, [::]:7077->7077/tcp, 0.0.0.0:18080->8080/tcp, [::]:18080->8080/tcp
+lakehouse-postgres                Up 3 days (healthy)               0.0.0.0:5433->5432/tcp, [::]:5433->5432/tcp
+lakehouse-minio                   Up 3 days                         0.0.0.0:9000-9001->9000-9001/tcp, [::]:9000-9001->9000-9001/tcp
+lakehouse-trino                   Up 3 days (healthy)               0.0.0.0:8085->8080/tcp, [::]:8085->8080/tcp
+k8s-security-lab-control-plane    Up 3 days                         127.0.0.1:60983->6443/tcp
+k8s-security-lab-worker2          Up 3 days                         
+k8s-security-lab-worker           Up 3 days                         
+marketing_dw_postgres             Up 3 days (healthy)               0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp

@@ -35,7 +35,7 @@ Aplicação local de reviews de produtos construída com `Node.js` e `Express` p
 - [Segurança](#seguranca)
 - [Estrutura do projeto](#estrutura-do-projeto)
 - [Documentação complementar](#documentacao-complementar)
-- [Evidências sugeridas para prints](#evidencias-sugeridas-para-prints)
+- [Organização de screenshots](#organizacao-de-screenshots)
 - [Troubleshooting](#troubleshooting)
 - [Próximos passos](#proximos-passos)
 - [Autor](#autor)
@@ -292,6 +292,8 @@ curl http://localhost:3000/health
 docker inspect --format='{{json .State.Health}}' product-reviews-api
 ```
 
+Os prints de Docker fazem mais sentido aqui no README, ao lado dos comandos e da validação do `healthcheck`.
+
 Mais detalhes em [docs/docker.md](docs/docker.md).
 
 [Retornar ao índice](#indice)
@@ -325,6 +327,8 @@ curl http://127.0.0.1:8080/health
 - exposição da aplicação por `Ingress` em `localhost:8080`
 - uso da mesma imagem Docker da aplicação
 - seed de dados JSON inicializado dentro do pod para manter a proposta simples do laboratório
+
+Quando você capturar evidências de Kubernetes, o ideal é inseri-las nesta seção, junto do fluxo local e da saída de `kubectl`.
 
 Documentação dedicada em [docs/kubernetes.md](docs/kubernetes.md).
 
@@ -393,6 +397,8 @@ O workflow de `CI` foi desenhado para ser enxuto, legível e útil para avaliaç
 - push de imagem apenas em `push` para `main` com secrets configurados
 - falha real em vulnerabilidade `HIGH` ou `CRITICAL`
 
+Os prints do GitHub Actions devem ficar nesta seção, próximos das etapas de `lint`, `coverage`, `Trivy` e `Docker build`.
+
 Mais detalhes em [docs/ci-cd-flow.md](docs/ci-cd-flow.md).
 
 [Retornar ao índice](#indice)
@@ -418,6 +424,8 @@ O projeto não promete deploy real em cloud. Em vez disso, demonstra promoção 
 - usa o mesmo artefato entre ambientes
 - evidencia raciocínio de promoção e validação
 - não exige infraestrutura paga
+
+As evidências de homologação e produção simulada funcionam melhor aqui, ao lado do fluxo de promoção entre as portas `3001` e `3002`.
 
 [Retornar ao índice](#indice)
 
@@ -494,57 +502,42 @@ product-reviews-cicd-pipeline-lab/
 
 [Retornar ao índice](#indice)
 
-<a id="evidencias-sugeridas-para-prints"></a>
+<a id="organizacao-de-screenshots"></a>
 
-## Evidências sugeridas para prints
+## Organização de screenshots
 
-Para fortalecer o portfólio, vale registrar:
+Como os prints serão inseridos nos contextos corretos do README, não faz sentido manter uma galeria isolada no fim do documento. A melhor leitura é:
 
-- interface web em `localhost:3000`
-- resposta de `/health` e `/api/reviews`
-- `npm run coverage`
-- `docker compose ps`
-- workflow de `CI` passando
-- workflow de `CD` simulada passando
-- `kubectl get pods,svc,ingress -n product-reviews-lab`
-- acesso ao app em `http://127.0.0.1:8080`
+- interface e UX na seção `Experiência visual`
+- evidências de API perto de `Endpoints da API`
+- evidências de Docker na seção `Docker`
+- evidências de CI na seção `Pipeline de CI`
+- evidências de Kubernetes na seção `Kubernetes local com k3d`
+- evidências de CD na seção `Pipeline de CD simulada`
 
-### Galeria pronta para screenshots
+Para manter consistência, vale continuar usando a pasta `docs/evidences/screenshots/` e nomes previsíveis para os arquivos.
 
-Sugestão de pasta para os arquivos:
+Para acelerar a preparação, o projeto agora também oferece:
 
-- `docs/evidences/screenshots/`
-
-Sugestão de nomes:
-
-| Arquivo sugerido                    | Conteúdo                                      |
-| ----------------------------------- | --------------------------------------------- |
-| `01-dashboard-dark-theme.png`       | hero, métricas e visual geral da aplicação    |
-| `02-summary-and-reviews.png`        | resumo por produto e lista de reviews         |
-| `03-form-validation-dark-theme.png` | formulário e estados de validação             |
-| `04-docker-compose-health.png`      | container saudável com Docker Compose         |
-| `05-ci-success.png`                 | pipeline de CI passando                       |
-| `06-kubernetes-local.png`           | `kubectl get pods,svc,ingress` e acesso local |
-| `07-cd-simulated-success.png`       | workflow de CD simulada concluído             |
-
-### Bloco pronto para inserir no README depois
-
-Quando os prints existirem, você pode colar algo como:
-
-```md
-## Galeria visual
-
-![Dashboard em tema escuro](docs/evidences/screenshots/01-dashboard-dark-theme.png)
-![Resumo por produto e reviews](docs/evidences/screenshots/02-summary-and-reviews.png)
-![Formulário com validação](docs/evidences/screenshots/03-form-validation-dark-theme.png)
-
-![Docker Compose saudável](docs/evidences/screenshots/04-docker-compose-health.png)
-![CI verde no GitHub Actions](docs/evidences/screenshots/05-ci-success.png)
-![Kubernetes local com k3d](docs/evidences/screenshots/06-kubernetes-local.png)
-![CD simulada concluída](docs/evidences/screenshots/07-cd-simulated-success.png)
+```bash
+npm run evidence:prepare
+npm run evidence:local
+npm run evidence:docker
+npm run evidence:k8s
+npm run evidence:cd
 ```
 
-Mais sugestões em [docs/evidence-guide.md](docs/evidence-guide.md).
+| Arquivo sugerido                    | Contexto ideal no README               |
+| ----------------------------------- | -------------------------------------- |
+| `01-dashboard-dark-theme.png`       | experiência visual e visão geral       |
+| `02-summary-and-reviews.png`        | experiência visual                     |
+| `03-form-validation-dark-theme.png` | experiência visual ou endpoints da API |
+| `04-docker-compose-health.png`      | Docker                                 |
+| `05-ci-success.png`                 | Pipeline de CI                         |
+| `06-kubernetes-local.png`           | Kubernetes local com k3d               |
+| `07-cd-simulated-success.png`       | Pipeline de CD simulada                |
+
+O checklist completo de captura continua em [docs/evidence-guide.md](docs/evidence-guide.md), com apoio operacional adicional em [docs/evidences/capture-checklist.md](docs/evidences/capture-checklist.md).
 
 [Retornar ao índice](#indice)
 
